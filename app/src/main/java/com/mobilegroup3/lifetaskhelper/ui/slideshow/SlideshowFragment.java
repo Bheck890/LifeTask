@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.mobilegroup3.lifetaskhelper.R;
 import com.mobilegroup3.lifetaskhelper.databinding.FragmentSlideshowBinding;
 
 public class SlideshowFragment extends Fragment {
