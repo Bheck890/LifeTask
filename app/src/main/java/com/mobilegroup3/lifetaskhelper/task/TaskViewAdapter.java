@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mobilegroup3.lifetaskhelper.R;
+import com.mobilegroup3.lifetaskhelper.ui.tasks.EditTaskActivity;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,6 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
         Task currentNumberPosition = getItem(position);
 
 
-
         // then according to the position of the view assign the desired TextView 1 for the same
         TextView textView1 = currentItemView.findViewById(R.id.titleTxt);
         textView1.setText(currentNumberPosition.getTitle());
@@ -65,13 +65,12 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
                 new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getContext(), TaskActivity.class);
+                //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
+                Intent intent = new Intent(getContext(), EditTaskActivity.class);
                 intent.putExtra("taskid", currentNumberPosition.getId());
                 getContext().startActivity(intent);
             }
         });
-
 
         // then return the recyclable view
         return currentItemView;

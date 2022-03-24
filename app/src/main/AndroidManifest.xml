@@ -9,7 +9,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifeTaskHelper">
         <activity
-            android:name=".task.TaskActivity"
+            android:name=".ui.tasks.TaskInformationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.tasks.ActionRecordTaskActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.tasks.EditTaskActivity"
+            android:exported="true"
+            android:label="Edit Action" />
+        <activity
+            android:name=".ui.tasks.NewTaskActivity"
             android:exported="true"
             android:label="New Action" />
         <activity

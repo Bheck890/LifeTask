@@ -1,19 +1,20 @@
 package com.mobilegroup3.lifetaskhelper;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-import com.mobilegroup3.lifetaskhelper.databinding.ActivityMainBinding;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.navigation.NavigationView;
+import com.mobilegroup3.lifetaskhelper.databinding.ActivityMainBinding;
+import com.mobilegroup3.lifetaskhelper.ui.tasks.NewTaskActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+
+                Intent intent = new Intent(view.getContext(), NewTaskActivity.class);
+                intent.putExtra("taskid", -1);
+                view.getContext().startActivity(intent);
+
             }
         });
         DrawerLayout drawer = binding.drawerLayout;

@@ -1,16 +1,16 @@
-package com.mobilegroup3.lifetaskhelper.ui.home;
+package com.mobilegroup3.lifetaskhelper.ui.about;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class AboutViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public AboutViewModel() {
         mText = new MutableLiveData<>();
-        //mText.setValue("Tasks:");
+        mText.setValue("This is slideshow fragment");
     }
 
     public LiveData<String> getText() {

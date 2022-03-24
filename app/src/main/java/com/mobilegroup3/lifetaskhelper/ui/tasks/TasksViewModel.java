@@ -1,16 +1,16 @@
-package com.mobilegroup3.lifetaskhelper.ui.gallery;
+package com.mobilegroup3.lifetaskhelper.ui.tasks;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class TasksViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public TasksViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        //mText.setValue("Tasks:");
     }
 
     public LiveData<String> getText() {

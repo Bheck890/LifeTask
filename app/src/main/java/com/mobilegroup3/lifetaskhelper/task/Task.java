@@ -5,7 +5,8 @@ public class Task {
     /*
     Need to work on:
     Required Framework testing:
-    when user presses on the List View Task, it should respond as it is going to select the information about the task
+    when user presses on the List View Task,
+    it should respond as it is going to select the information about the task
     ... Pivot would be an info button on the list view bar
 
 

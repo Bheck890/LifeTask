@@ -1,10 +1,9 @@
-package com.mobilegroup3.lifetaskhelper.ui.home;
+package com.mobilegroup3.lifetaskhelper.ui.tasks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,22 +19,21 @@ import com.mobilegroup3.lifetaskhelper.task.TaskViewAdapter;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class TasksFragment extends Fragment {
 
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    private HomeViewModel homeViewModel;
+    private TasksViewModel homeViewModel;
     private FragmentHomeBinding binding;
     static TaskViewAdapter taskAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+                new ViewModelProvider(this).get(TasksViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //ListView listView = binding.taskList;
         TaskListView listView = (TaskListView) binding.taskList;
 
         if (tasks.isEmpty()) {
@@ -48,28 +46,11 @@ public class HomeFragment extends Fragment {
 
         listView.setAdapter(taskAdapter);
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                // Going from MainActivity to NotesEditorActivity
-                //Intent intent = new Intent(getContext(), TaskActivity.class);
-                //intent.putExtra("noteId", i);
-                //startActivity(intent);
-                System.out.println("Position: " + position);
-            }
-        });
-
-
-
-
-
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+               textView.setText(s);
             }
         });
         return root;
