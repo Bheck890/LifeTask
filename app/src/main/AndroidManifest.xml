@@ -10,10 +10,12 @@
         android:theme="@style/Theme.LifeTaskHelper">
         <activity
             android:name=".ui.tasks.TaskInformationActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Task Information"/>
         <activity
             android:name=".ui.tasks.ActionRecordTaskActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Action Record Info"/>
         <activity
             android:name=".ui.tasks.EditTaskActivity"
             android:exported="true"

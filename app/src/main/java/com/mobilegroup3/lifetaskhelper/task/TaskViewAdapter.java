@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mobilegroup3.lifetaskhelper.R;
+import com.mobilegroup3.lifetaskhelper.ui.tasks.ActionRecordTaskActivity;
 import com.mobilegroup3.lifetaskhelper.ui.tasks.EditTaskActivity;
+import com.mobilegroup3.lifetaskhelper.ui.tasks.TaskInformationActivity;
 
 import java.util.ArrayList;
 
@@ -45,32 +47,50 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
         // get the position of the view from the ArrayAdapter
         Task currentNumberPosition = getItem(position);
 
-
-        // then according to the position of the view assign the desired TextView 1 for the same
         TextView textView1 = currentItemView.findViewById(R.id.titleTxt);
         textView1.setText(currentNumberPosition.getTitle());
 
-        // then according to the position of the view assign the desired TextView 2 for the same
         TextView textView2 = currentItemView.findViewById(R.id.sincePreformedTxt);
         textView2.setText(currentNumberPosition.getDateSinceUpdate());
 
-        // then according to the position of the view assign the desired TextView 2 for the same
         Button buttonPreformed = currentItemView.findViewById(R.id.taskDoneBtn);
-        buttonPreformed.setText("Preformed Task");
+        buttonPreformed.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
+                        Intent intent = new Intent(getContext(), ActionRecordTaskActivity.class);
+                        intent.putExtra("taskid", currentNumberPosition.getId());
+                        getContext().startActivity(intent);
+                    }
+                }
+        );
 
-        // then according to the position of the view assign the desired TextView 2 for the same
+        Button buttonInfo = currentItemView.findViewById(R.id.taskInfoBtn);
+        buttonInfo.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
+                        Intent intent = new Intent(getContext(), TaskInformationActivity.class);
+                        intent.putExtra("taskid", currentNumberPosition.getId());
+                        getContext().startActivity(intent);
+                    }
+                }
+        );
+
         Button buttonSettings = currentItemView.findViewById(R.id.taskSettingsBtn);
-        buttonSettings.setBackgroundResource(R.drawable.gear);
         buttonSettings.setOnClickListener(
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
-                Intent intent = new Intent(getContext(), EditTaskActivity.class);
-                intent.putExtra("taskid", currentNumberPosition.getId());
-                getContext().startActivity(intent);
-            }
-        });
+                    @Override
+                    public void onClick(View v) {
+                        //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
+                        Intent intent = new Intent(getContext(), EditTaskActivity.class);
+                        intent.putExtra("taskid", currentNumberPosition.getId());
+                        getContext().startActivity(intent);
+                    }
+                }
+        );
 
         // then return the recyclable view
         return currentItemView;

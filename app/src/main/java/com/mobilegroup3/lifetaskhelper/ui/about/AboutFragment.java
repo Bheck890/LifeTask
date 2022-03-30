@@ -4,36 +4,37 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.mobilegroup3.lifetaskhelper.databinding.FragmentSlideshowBinding;
+import com.mobilegroup3.lifetaskhelper.databinding.FragmentAboutBinding;
 
 public class AboutFragment extends Fragment {
 
-    private AboutViewModel aboutViewModel;
-    private FragmentSlideshowBinding binding;
+    //private AboutViewModel aboutViewModel;
+    private FragmentAboutBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        binding = FragmentAboutBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        /*
         aboutViewModel =
                 new ViewModelProvider(this).get(AboutViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
+        final TextView textView = binding.textDeveloped;
         aboutViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+         */
+
         return root;
     }
 

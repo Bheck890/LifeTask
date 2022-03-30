@@ -4,16 +4,15 @@ public class Task {
 
     /*
     Need to work on:
-    Required Framework testing:
-    when user presses on the List View Task,
+
+    Required Backend testing:
+    When user presses on the info button,
     it should respond as it is going to select the information about the task
-    ... Pivot would be an info button on the list view bar
 
-
-    Button for adding a new Task
-    Edit Task view that is after the task is created
-    View for when the task is preformed to update and record info
-    View for when pressed on the task it will show information about the prior events.
+    Button for adding a new Task -
+    Edit Task view that is after the task is created -
+    View for when the task is preformed to update and record info -
+    View for when pressed on the task it will show information about the prior events. -
 
     View for Contact us set up message from the app, to the email.
     Simplest view for the about page

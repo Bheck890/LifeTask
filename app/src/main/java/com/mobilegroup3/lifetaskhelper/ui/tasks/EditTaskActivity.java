@@ -21,7 +21,7 @@ public class EditTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
 
-        EditText editText = findViewById(R.id.editEdtxtTitle);
+        EditText editText = findViewById(R.id.editTxtTitle);
 
         // Fetch data that is passed from MainActivity
         Intent intent = getIntent();
@@ -34,7 +34,7 @@ public class EditTaskActivity extends AppCompatActivity {
             finish();
         }
 
-        Button buttonSettings = this.findViewById(R.id.editSaveBtn);
+        Button buttonSettings = this.findViewById(R.id.buttonSave);
         buttonSettings.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
