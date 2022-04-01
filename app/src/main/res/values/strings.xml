@@ -11,6 +11,7 @@
     <string name="menu_gallery">Contact us</string>
     <string name="menu_slideshow">About</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
     <string name="location">Location:</string>
     <string name="date">Date:</string>
     <string name="title">Title:</string>
