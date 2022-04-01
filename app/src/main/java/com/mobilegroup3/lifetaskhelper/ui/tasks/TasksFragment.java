@@ -53,6 +53,26 @@ public class TasksFragment extends Fragment {
                textView.setText(s);
             }
         });
+
+        /*
+        FloatingActionButton addButton = root.findViewById(R.id.fab);
+        //root.findViewById(R.id.fab)
+        addButton.setOnClickListener(
+                new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+
+                Intent intent = new Intent(view.getContext(), NewTaskActivity.class);
+                intent.putExtra("taskid", -1);
+                view.getContext().startActivity(intent);
+
+            }
+        });
+         */
+
+
         return root;
     }
 

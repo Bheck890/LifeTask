@@ -35,7 +35,7 @@ public class NewTaskActivity extends AppCompatActivity {
             editText.setText("Title");
         }
 
-        Button buttonSettings = this.findViewById(R.id.saveBtn);
+        Button buttonSettings = this.findViewById(R.id.buttonSave);
         buttonSettings.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
