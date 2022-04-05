@@ -11,15 +11,9 @@
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/activity_task_information.xml" value="0.35260416666666666" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/fragment_about.xml" value="0.36666666666666664" />
-        <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/fragment_contact.xml" value="0.36666666666666664" />
-        <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/fragment_home.xml" value="0.20520833333333333" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/fragment_new_task.xml" value="0.36666666666666664" />
-        <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/layout/task_list_view.xml" value="0.36666666666666664" />
-        <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/menu/activity_main_drawer.xml" value="0.20520833333333333" />
-        <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTask/app/src/main/res/menu/main.xml" value="0.20520833333333333" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTaskHelper/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTaskHelper/app/src/main/res/layout/activity_task.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTaskHelper/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
@@ -28,7 +22,11 @@
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTaskHelper/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTaskHelper/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
         <entry key="..\:/Android-Applications/AndroidProjects/Mobile-Project/LifeTaskHelper/app/src/main/res/menu/main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jessw/OneDrive/Desktop/LifeTask/app/src/main/res/drawable/side_nav_bar.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/jessw/OneDrive/Desktop/LifeTask/app/src/main/res/layout/activity_edit_task.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/jessw/OneDrive/Desktop/LifeTask/app/src/main/res/layout/app_bar_main.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/jessw/OneDrive/Desktop/LifeTask/app/src/main/res/layout/fragment_contact.xml" value="0.20520231213872833" />
+        <entry key="..\:/Users/jessw/OneDrive/Desktop/LifeTask/app/src/main/res/layout/nav_header_main.xml" value="0.5" />
       </map>
     </option>
   </component>
