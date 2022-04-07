@@ -17,15 +17,16 @@
 
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="disableMessage">Disabled</string>
 
-    <string name="title">Title:</string>
+    <string name="title">*Title:</string>
     <string name="titleBox">Title</string>
 
     <string name="date">Date:</string>
     <string name="newDate">Set a new Date:</string>
-    <string name="dateBox">DD/MM/YYY</string>
+    <string name="dateBox">YYYY-MM-DD</string>
 
-    <string name="timeBox">mm:hh</string>
+    <string name="timeBox">hh:mm</string>
     <string name="locationBox">123 Apple Wood St</string>
 
     <string name="dateSelector">Date Selector:</string>
