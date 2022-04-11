@@ -5,19 +5,26 @@ public class Task {
     /*
     Need to work on:
 
-    Required Backend testing:
-    When user presses on the info button,
-    it should respond as it is going to select the information about the task
+    Required Backend testing:!!@@@!!!!!
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    Now its to Record the Tasks in SQL.
+    Retrieve the list of Tasks into the task ListView
+    and Retrieve the info in the Task. when press the Info button.
+    then to be able to update and save the Task back to the Database when press save in settings.
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    then its recording a new Task Event that the user Records the action was done.
+    (Bunch of SQL stuff)
+    then its Retrieving the times that event was recorded
+    then I guess Setting up to check the users location when it matches a task location
 
-    Button for adding a new Task -
-    Edit Task view that is after the task is created -
-    View for when the task is preformed to update and record info -
-    View for when pressed on the task it will show information about the prior events. -
+    Then its basically done. :)
 
-    View for Contact us set up message from the app, to the email.
-    Simplest view for the about page
+    Just a bit of SQL Left.
 
+    Side Tasks:
     some custom art work and simple changing, for the menu bar options.
+    Setup to Email an email in contact us: not Needed
+    but if you want to make it email you or me would be cool
 
 
     Background and Future Issues:
