@@ -9,8 +9,9 @@ public class Task {
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     Now its to Record the Tasks in SQL.
     Retrieve the list of Tasks into the task ListView
-    and Retrieve the info in the Task. when press the Info button.
-    then to be able to update and save the Task back to the Database when press save in settings.
+
+    to be able to update and save the Task back to the Database when press save in settings.
+    then Retrieve the info in the Task. when press the Info button.
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     then its recording a new Task Event that the user Records the action was done.
     (Bunch of SQL stuff)
@@ -47,34 +48,105 @@ public class Task {
     private int id = 0;
 
     // Title of task
-    private String Title = " ";
+    private String Title = "";
 
+    //////////////////////////////
     //Since the task was performed
     private String dateSinceUpdate = "Never Started";
 
-    //Note of the task Preformed
-    private String taskNote = " ";
+    //Note From the task Preformed
+    private String taskNote = "";
 
     //Day and time to remind the User (Running in background and remind when time matches)
     private String dateToRemindUser = " ";
 
     //Coordinates to check if user is close to area.
     private String locationReminder = " ";
+    //////////////////////////////
 
+    private double latitude;
+    private double longitude;
+    private String address;
+    private Boolean enable_address;
+    private Boolean address_verified;
+    private String date;
+    private int hour;
+    private int minute;
+
+
+    //Basic
     public Task(int id, String name){
         this.id = id;
         this.Title = name;
     }
 
+    //Set title and Date
     public Task(int id, String name, String update){
         this.id = id;
         this.Title = name;
         this.dateSinceUpdate = update;
     }
 
+    //All SQL stuff
+    public Task(int id,
+                String title,
+                double latitude,
+                double longitude,
+                String address,
+                Boolean enable_address,
+                Boolean address_verified,
+                String date,
+                int hour,
+                int minute){
+        this.id = id;
+        this.Title = title;
+        //this.dateSinceUpdate = update;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+        this.enable_address = enable_address;
+        this.address_verified = address_verified;
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
+    }
+
+    //All SQL stuff
+    public void updateTask(int id,
+                String title,
+                double latitude,
+                double longitude,
+                String address,
+                Boolean enable_address,
+                Boolean address_verified,
+                String date,
+                int hour,
+                int minute){
+        this.id = id;
+        this.Title = title;
+        //this.dateSinceUpdate = update;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+        this.enable_address = enable_address;
+        this.address_verified = address_verified;
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
+    }
+
     @Override
     public String toString() {
-        return "Task: " + getTitle();
+
+        return "Task: " + getTitle() +
+               "\nlatitude: " + getLatitude() +
+                "\nlong: " + getLongitude() +
+                "\naddress: " + getAddress() +
+                "\nenableAddress: " + getEnable_address() +
+                "\naddressVerified: " + getAddress_verified() +
+                "\ndate: " + getDate() +
+                "\nhour: " + getHour() +
+                "\nmin: " +getMinute();
     }
 
     public String getTitle() {
@@ -120,5 +192,69 @@ public class Task {
 
     public void setLocationReminder(String locationReminder) {
         this.locationReminder = locationReminder;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Boolean getEnable_address() {
+        return enable_address;
+    }
+
+    public void setEnable_address(Boolean enable_address) {
+        this.enable_address = enable_address;
+    }
+
+    public Boolean getAddress_verified() {
+        return address_verified;
+    }
+
+    public void setAddress_verified(Boolean address_verified) {
+        this.address_verified = address_verified;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 }

@@ -2,6 +2,7 @@ package com.mobilegroup3.lifetaskhelper.task;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +46,13 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
         }
 
         // get the position of the view from the ArrayAdapter
-        Task currentNumberPosition = getItem(position);
+        Task taskInstance = getItem(position);
 
-        TextView textView1 = currentItemView.findViewById(R.id.titleTxt);
-        textView1.setText(currentNumberPosition.getTitle());
+        TextView taskTitle = currentItemView.findViewById(R.id.titleTxt);
+        taskTitle.setText(taskInstance.getTitle());
 
-        TextView textView2 = currentItemView.findViewById(R.id.sincePreformedTxt);
-        textView2.setText(currentNumberPosition.getDateSinceUpdate());
+        TextView taskLastDate = currentItemView.findViewById(R.id.sincePreformedTxt);
+        taskLastDate.setText(taskInstance.getDateSinceUpdate());
 
         Button buttonPreformed = currentItemView.findViewById(R.id.taskDoneBtn);
         buttonPreformed.setOnClickListener(
@@ -60,7 +61,7 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
                     public void onClick(View v) {
                         //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
                         Intent intent = new Intent(getContext(), ActionRecordTaskActivity.class);
-                        intent.putExtra("taskid", currentNumberPosition.getId());
+                        intent.putExtra("taskid", taskInstance.getId());
                         getContext().startActivity(intent);
                     }
                 }
@@ -73,11 +74,20 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
                     public void onClick(View v) {
                         //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
                         Intent intent = new Intent(getContext(), TaskInformationActivity.class);
-                        intent.putExtra("taskid", currentNumberPosition.getId());
+                        intent.putExtra("taskid", taskInstance.getId());
                         getContext().startActivity(intent);
                     }
                 }
         );
+
+        Button buttonReminder = currentItemView.findViewById(R.id.reminderIcon);
+        if(taskInstance.getEnable_address()) //Location
+            buttonReminder.setBackgroundColor(Color.GREEN);
+        else if(!taskInstance.getDate().isEmpty()) //Date
+            buttonReminder.setBackgroundColor(Color.BLUE);
+        else // No Reminder
+            buttonReminder.setVisibility(View.INVISIBLE); //buttonReminder.setBackgroundColor(Color.WHITE);
+
 
         Button buttonSettings = currentItemView.findViewById(R.id.taskSettingsBtn);
         buttonSettings.setOnClickListener(
@@ -86,7 +96,7 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
                     public void onClick(View v) {
                         //NewTaskFragment NewTask = (NewTaskFragment) getSupportFragmentManager().findFragmentById(R.id.New
                         Intent intent = new Intent(getContext(), EditTaskActivity.class);
-                        intent.putExtra("taskid", currentNumberPosition.getId());
+                        intent.putExtra("taskid", taskInstance.getId());
                         getContext().startActivity(intent);
                     }
                 }

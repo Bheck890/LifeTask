@@ -1,10 +1,16 @@
 package com.mobilegroup3.lifetaskhelper.ui.tasks;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +28,14 @@ import java.util.ArrayList;
 public class TasksFragment extends Fragment {
 
     public static ArrayList<Task> tasks = new ArrayList<>();
+    private static SQLiteOpenHelper TaskDatabase;
+    private static final String TB_NAME = "TASK"; // the name of our Table
 
     private TasksViewModel homeViewModel;
     private FragmentHomeBinding binding;
     static TaskViewAdapter taskAdapter;
+    private SQLiteDatabase db;
+    private Cursor cursor;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,15 +46,71 @@ public class TasksFragment extends Fragment {
 
         TaskListView listView = (TaskListView) binding.taskList;
 
-        if (tasks.isEmpty()) {
-            tasks.add(new Task(0,"Example note"));
-            tasks.add(new Task(1,"Example note", "6 days"));
-            //System.out.println("TASKS ADDED");
+        TaskDatabase = new TaskDatabaseHelper(getContext());
+        try {
+            System.out.println("@@@@@@@@@@@@-Reading Database");
+
+            db = TaskDatabase.getReadableDatabase();
+            cursor = db.query ("TASK",
+                    new String[] {
+                            "_id",
+                            "TITLE",
+                            "LATITUDE",
+                            "LONGITUDE",
+                            "ADDRESS",
+                            "ENABLE_ADDRESS",
+                            "ADDRESS_VERIFIED",
+                            "DATE",
+                            "HOUR",
+                            "MINUTE"
+                    }, //
+                    null, null, null, null, null);
+
+            //Move to the first record in the Cursor
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    System.out.println("@@@@@@@@@@@@-Reading Database Line");
+                    int _id = cursor.getInt(0);
+                    String title = cursor.getString(1);
+                    double latitude = cursor.getDouble(2);
+                    double longitude = cursor.getInt(3);
+                    String address = cursor.getString(4);
+                    boolean enable_address = (cursor.getInt(5) == 1);
+                    boolean address_verified = (cursor.getInt(6) == 1);
+                    String date = cursor.getString(7);
+                    int hour = cursor.getInt(8);
+                    int min = cursor.getInt(9);
+
+                    tasks.add(new Task(
+                            _id,
+                            title,
+                            latitude,
+                            longitude,
+                            address,
+                            enable_address,
+                            address_verified,
+                            date,
+                            hour,
+                            min
+                    ));
+                    cursor.moveToNext();
+                }
+            }
+
+            taskAdapter = new TaskViewAdapter(getContext(), tasks);
+            for (Task Tas: tasks) {
+                System.out.println("@@@@@@@@@@@@-" + Tas);
+            }
+            //System.out.println(tasks);
+            listView.setAdapter(taskAdapter);
+
+            cursor.close();
+            db.close();
+        } catch (SQLiteException e) {
+            System.out.println("@@@@@@@@@@@@-Error Reading Database");
+            Toast toast = Toast.makeText(getContext(), "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
         }
-
-        taskAdapter = new TaskViewAdapter(getContext(), tasks);
-
-        listView.setAdapter(taskAdapter);
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -53,24 +119,6 @@ public class TasksFragment extends Fragment {
                textView.setText(s);
             }
         });
-
-        /*
-        FloatingActionButton addButton = root.findViewById(R.id.fab);
-        //root.findViewById(R.id.fab)
-        addButton.setOnClickListener(
-                new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
-
-                Intent intent = new Intent(view.getContext(), NewTaskActivity.class);
-                intent.putExtra("taskid", -1);
-                view.getContext().startActivity(intent);
-
-            }
-        });
-         */
 
 
         return root;
@@ -84,6 +132,69 @@ public class TasksFragment extends Fragment {
 
     public static TaskViewAdapter getAdapter() {
         return taskAdapter;
+    }
+
+    public static void addLastAddedTask() {
+        Task newTaskInstance = tasks.get(tasks.size()-1);
+
+        System.out.println("@@@@@@@-NewTask" + newTaskInstance);
+
+        ContentValues taskValues = new ContentValues();
+        taskValues.put("TITLE", newTaskInstance.getTitle());
+        taskValues.put("LATITUDE", newTaskInstance.getLatitude());
+        taskValues.put("LONGITUDE", newTaskInstance.getLongitude());
+        taskValues.put("ADDRESS", newTaskInstance.getAddress());
+        taskValues.put("ENABLE_ADDRESS", newTaskInstance.getEnable_address());
+        taskValues.put("ADDRESS_VERIFIED", newTaskInstance.getAddress_verified());
+        taskValues.put("DATE", newTaskInstance.getDate());
+        taskValues.put("HOUR", newTaskInstance.getHour());
+        taskValues.put("MINUTE", newTaskInstance.getMinute());
+
+
+        //Get a reference to the database and update the FAVORITE column
+        try {
+            //TaskDatabase = new TaskDatabaseHelper();
+            SQLiteDatabase db = TaskDatabase.getWritableDatabase();
+            db.insert(TB_NAME, null, taskValues);
+            db.close();
+
+        } catch(SQLiteException e) {
+            System.out.println("@@@@@@@@@@@@@ - Issue adding the New Task to Database");
+            //Toast toast = Toast.makeText(this.getContext(), "Database unavailable", Toast.LENGTH_SHORT);
+            //toast.show();
+        }
+    }
+
+    public static void updateTask(Task TaskInstance) {
+        Task updatedTaskInstance = tasks.get(TaskInstance.getId()-1);
+
+        System.out.println("@@@@@@@-UpdateTask" + updatedTaskInstance);
+
+        ContentValues taskValues = new ContentValues();
+        taskValues.put("TITLE", updatedTaskInstance.getTitle());
+        taskValues.put("LATITUDE", updatedTaskInstance.getLatitude());
+        taskValues.put("LONGITUDE", updatedTaskInstance.getLongitude());
+        taskValues.put("ADDRESS", updatedTaskInstance.getAddress());
+        taskValues.put("ENABLE_ADDRESS", updatedTaskInstance.getEnable_address());
+        taskValues.put("ADDRESS_VERIFIED", updatedTaskInstance.getAddress_verified());
+        taskValues.put("DATE", updatedTaskInstance.getDate());
+        taskValues.put("HOUR", updatedTaskInstance.getHour());
+        taskValues.put("MINUTE", updatedTaskInstance.getMinute());
+
+
+        //Get a reference to the database and update the FAVORITE column
+        try {
+            //TaskDatabase = new TaskDatabaseHelper();
+            SQLiteDatabase db = TaskDatabase.getWritableDatabase();
+            db.update(TB_NAME, taskValues,"_id = ?",
+                    new String[] {Integer.toString(TaskInstance.getId())});
+            db.close();
+
+        } catch(SQLiteException e) {
+            System.out.println("@@@@@@@@@@@@@ - Issue updating the Task to the Database");
+            //Toast toast = Toast.makeText(this.getContext(), "Database unavailable", Toast.LENGTH_SHORT);
+            //toast.show();
+        }
     }
 
 

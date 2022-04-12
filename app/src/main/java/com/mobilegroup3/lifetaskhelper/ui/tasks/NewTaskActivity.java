@@ -42,8 +42,6 @@ public class NewTaskActivity extends AppCompatActivity {
 
         EditText editTextTitle = findViewById(R.id.edtxtTitle);
 
-
-
         // Fetch data that is passed from MainActivity
         Intent intent = getIntent();
 
@@ -96,8 +94,27 @@ public class NewTaskActivity extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
+                                // Fix hour if that becomes a problem. but just going to keep here.
+                                // Need to add AM/PM aspect if change the hour.
+                                /*
+                                if(hourOfDay > 12) {
+                                    int hrS = hourOfDay;
+                                    if (hourOfDay > 12)
+                                        hrS -= 12;
+                                    if(minute < 10){
+                                        String minS = String.format("%02d", minute);
+
+                                        editTextTime.setText(hrS + ":" + minS);
+                                    }
+                                    else{
+                                        editTextTime.setText(hrS + ":" + minute);
+                                    }
+                                }
+                                else
+                                */
+
                                 if(minute < 10){
-                                    String minS = String.format("%02d", minute);;
+                                    String minS = String.format("%02d", minute);
                                     editTextTime.setText(hourOfDay + ":" + minS);
                                 }
                                 else{
@@ -118,6 +135,7 @@ public class NewTaskActivity extends AppCompatActivity {
         Button buttonVerify = this.findViewById(R.id.buttonVerifyAddress);
         CheckBox CheckboxAddressVerify = this.findViewById(R.id.checkBoxAddressCheck);
         CheckBox CheckboxEnableAddress = this.findViewById(R.id.checkBoxEnableLocation);
+
         //checkBoxEnableLocation
         CheckboxAddressVerify.setClickable(false);
         final boolean[] location = {false};
@@ -220,12 +238,13 @@ public class NewTaskActivity extends AppCompatActivity {
                                 //Variables to put into Database
                                 editTextTitle.getText().toString(); //String Title
 
-                                Location[0].getLatitude(); //Long
-                                Location[0].getLongitude(); //Long
-                                editTextLocation.getText().toString(); //String Address
-                                CheckboxEnableAddress.isChecked(); //Boolean
-                                CheckboxAddressVerify.isChecked(); //Boolean
+                                //Location[0].getLatitude(); //Long
+                                //Location[0].getLongitude(); //Long
+                                //editTextLocation.getText().toString(); //String Address
+                                //CheckboxEnableAddress.isChecked(); //Boolean
+                                //CheckboxAddressVerify.isChecked(); //Boolean
 
+                                /*
                                 System.out.println("Title: " + editTextTitle.getText().toString() +
                                         "\nLatitude: " + Location[0].getLatitude() +
                                         "\nLongitude: " + Location[0].getLongitude() +
@@ -233,17 +252,25 @@ public class NewTaskActivity extends AppCompatActivity {
                                         "\nEnableAddress: " + CheckboxEnableAddress.isChecked() +
                                         "\nAddressVerify: " + CheckboxAddressVerify.isChecked()
                                 );
+                                 */
 
                                 TasksFragment.tasks.add(new Task(
                                         TasksFragment.tasks.size(),
-                                        editTextTitle.getText().toString())
+                                        editTextTitle.getText().toString(),
+                                        Location[0].getLatitude(),
+                                        Location[0].getLongitude(),
+                                        editTextLocation.getText().toString(),
+                                        CheckboxEnableAddress.isChecked(),
+                                        CheckboxAddressVerify.isChecked(),
+                                        "",
+                                        0,
+                                        0)
                                 );
 
-
-                                //Update the Task function is Below
-                                //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
                                 finish();
                                 TasksFragment.getAdapter().notifyDataSetChanged();
+                                //Update the Task function is Below
+                                TasksFragment.addLastAddedTask();
                                 //----------------------------------------------------------------
                             }
                             else{
@@ -261,7 +288,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
                                 if(editTextDate.getText().toString().length() >= 10) {
                                     //System.out.println("Valid Date: " + editTextDate.getText().toString());
-                                    if(editTextTime.getText().toString().length() >= 5) {
+                                    if(editTextTime.getText().toString().length() >= 4) {
                                         System.out.println("Valid Time: " + editTextTime.getText().toString());
 
                                         //----------------------------------------------------------------
@@ -277,16 +304,24 @@ public class NewTaskActivity extends AppCompatActivity {
                                         );
                                         //Boolean for Date True
 
-
                                         TasksFragment.tasks.add(new Task(
                                                 TasksFragment.tasks.size(),
-                                                editTextTitle.getText().toString())
+                                                editTextTitle.getText().toString(),
+                                                0,
+                                                0,
+                                                "",
+                                                false,
+                                                false,
+                                                editTextDate.getText().toString(),
+                                                hour[0],
+                                                min[0])
                                         );
 
                                         //Update the Task function is Below
                                         //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
                                         finish();
                                         TasksFragment.getAdapter().notifyDataSetChanged();
+                                        TasksFragment.addLastAddedTask();
                                         //----------------------------------------------------------------
                                     }
                                     else{
@@ -314,13 +349,22 @@ public class NewTaskActivity extends AppCompatActivity {
 
                                 TasksFragment.tasks.add(new Task(
                                         TasksFragment.tasks.size(),
-                                        editTextTitle.getText().toString())
+                                        editTextTitle.getText().toString(),
+                                        0,
+                                        0,
+                                        "",
+                                        false,
+                                        false,
+                                        "",
+                                        0,
+                                        0)
                                 );
 
                                 //Update the Task function is Below
                                 //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
                                 finish();
                                 TasksFragment.getAdapter().notifyDataSetChanged();
+                                TasksFragment.addLastAddedTask();
                                 //----------------------------------------------------------------
 
 
