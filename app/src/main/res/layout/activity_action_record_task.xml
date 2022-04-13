@@ -6,39 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.tasks.ActionRecordTaskActivity">
 
-    <Button
-        android:id="@+id/recordSaveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/save_green"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/recordTxtDescription"
-        android:layout_width="289dp"
-        android:layout_height="142dp"
-        android:autofillHints="@string/descriptionBox"
-        android:hint="@string/descriptionBox"
-        android:inputType="textMultiLine"
-        app:layout_constraintStart_toStartOf="@+id/recordTextViewDescription"
-        app:layout_constraintTop_toBottomOf="@+id/recordTextViewDescription"
-        tools:ignore="TextContrastCheck" />
-
-    <TextView
-        android:id="@+id/recordTextViewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="84dp"
-        android:text="@string/description"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/recordTextViewTitle"
         android:layout_width="wrap_content"
@@ -52,15 +19,37 @@
 
     <TextView
         android:id="@+id/recordTxtTitle"
-        android:layout_width="238dp"
-        android:layout_height="53dp"
+        android:layout_width="303dp"
+        android:layout_height="47dp"
         android:layout_marginStart="20dp"
         android:autofillHints="@string/titleBox"
         android:hint="@string/titleBox"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toEndOf="@+id/recordTextViewTitle"
         app:layout_constraintTop_toTopOf="@+id/recordTextViewTitle"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/recordTextViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/description"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/recordTxtDescription"
+        android:layout_width="289dp"
+        android:layout_height="142dp"
+        android:autofillHints="@string/descriptionBox"
+        android:hint="@string/descriptionBox"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/recordTextViewDescription"
+        app:layout_constraintTop_toBottomOf="@+id/recordTextViewDescription"
         tools:ignore="TextContrastCheck" />
 
     <TextView
@@ -155,7 +144,8 @@
         android:backgroundTint="@color/verify"
         android:text="@string/verify_address"
         app:layout_constraintStart_toStartOf="@+id/recordTxtLocation"
-        app:layout_constraintTop_toBottomOf="@+id/recordTxtLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/recordTxtLocation"
+        tools:ignore="TextContrastCheck" />
 
     <CheckBox
         android:id="@+id/recordCheckBoxAddressCheck"
@@ -166,6 +156,28 @@
         app:layout_constraintBottom_toBottomOf="@+id/recordButtonVerifyAddress"
         app:layout_constraintStart_toEndOf="@+id/recordButtonVerifyAddress"
         app:layout_constraintTop_toTopOf="@+id/recordButtonVerifyAddress" />
+
+    <Button
+        android:id="@+id/recordSaveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/save_green"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/recordTextViewDataNotice"
+        android:layout_width="371dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/record_all_data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordButtonVerifyAddress" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

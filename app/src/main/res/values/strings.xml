@@ -46,7 +46,6 @@
     <string name="preformedListNotes">Selected Action Description:</string>
     <string name="preformedListLocation">Selected Action Address:</string>
 
-
     <string name="developed">Developed by:\n\nBrandon Heck,\n Jessica Wazbinski,
         \n Michelle Nater </string>
     <string name="school">School: Seminole State College</string>
@@ -59,5 +58,8 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="send">Send</string>
+
+    <string name="record_today_date">**This Action will Record today\'s Date and Time, and Description**</string>
+    <string name="record_all_data">**This Action will record your current Location, Date and Time, and Description**</string>
 
 </resources>

@@ -9,15 +9,13 @@ public class Task {
 
     Required Backend testing:!!@@@!!!!!
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    Now its to Record the Tasks in SQL.
-    Retrieve the list of Tasks into the task ListView
-
-    to be able to update and save the Task back to the Database when press save in settings.
-    then Retrieve the info in the Task. when press the Info button.
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     then its recording a new Task Event that the user Records the action was done.
     (Bunch of SQL stuff)
     then its Retrieving the times that event was recorded
+    then Retrieve the info in the Task. when press the Info button.
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
     then I guess Setting up to check the users location when it matches a task location
 
     Then its basically done. :)
@@ -152,6 +150,8 @@ public class Task {
                 "\nmin: " +getMinute();
     }
 
+    //-------------------------------------------------------------
+
     public String getTitle() {
         return Title;
     }
@@ -173,6 +173,8 @@ public class Task {
     }
 
 
+    //-------------------------------------------------------------
+
     public String getTaskNote() {
         return taskNote;
     }
@@ -180,6 +182,8 @@ public class Task {
     public void setTaskNote(String taskNote) {
         this.taskNote = taskNote;
     }
+
+    //-------------------------------------------------------------
 
     public String getDateToRemindUser() {
         return dateToRemindUser;
@@ -196,6 +200,9 @@ public class Task {
     public void setLocationReminder(String locationReminder) {
         this.locationReminder = locationReminder;
     }
+
+    //-------------------------------------------------------------
+
 
     public double getLatitude() {
         return latitude;

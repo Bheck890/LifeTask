@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "lifeTasks2.sqlite"; // the name of our database
+    private static final String DB_NAME = "lifeTasks3.sqlite"; // the name of our database
     private static final String TB_NAME = "TASK"; // the name of our Table
     private static final int DB_VERSION = 1; // the version of the database
 
