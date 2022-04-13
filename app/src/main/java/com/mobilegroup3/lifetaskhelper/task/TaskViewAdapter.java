@@ -2,7 +2,6 @@ package com.mobilegroup3.lifetaskhelper.task;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,13 +80,7 @@ public class TaskViewAdapter extends ArrayAdapter<Task> {
         );
 
         Button buttonReminder = currentItemView.findViewById(R.id.reminderIcon);
-        if(taskInstance.getEnable_address()) //Location
-            buttonReminder.setBackgroundColor(Color.GREEN);
-        else if(!taskInstance.getDate().isEmpty()) //Date
-            buttonReminder.setBackgroundColor(Color.BLUE);
-        else // No Reminder
-            buttonReminder.setVisibility(View.INVISIBLE); //buttonReminder.setBackgroundColor(Color.WHITE);
-
+        buttonReminder.setBackgroundColor(taskInstance.getReminderColor());
 
         Button buttonSettings = currentItemView.findViewById(R.id.taskSettingsBtn);
         buttonSettings.setOnClickListener(

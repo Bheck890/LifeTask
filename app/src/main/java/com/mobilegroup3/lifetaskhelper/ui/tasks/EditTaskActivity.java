@@ -80,11 +80,63 @@ public class EditTaskActivity extends AppCompatActivity {
             CheckboxAddressVerify.setChecked(taskInstance.getAddress_verified());
             CheckboxEnableAddress.setChecked(taskInstance.getEnable_address());
             location[0] = taskInstance.getAddress_verified();
-            hour[0] = taskInstance.getHour();
-            min[0] = taskInstance.getMinute();
+
+            if((taskInstance.getHour() == 0) && (taskInstance.getMinute() == 0)){
+                editTextTime.setText("");
+                System.out.println("@@@@@@@@@@@@@-Empty Time1");
+            }
+            else{
+                hour[0] = taskInstance.getHour();
+                min[0] = taskInstance.getMinute();
+            }
+
         } else {
             finish();
         }
+
+        if(location[0]){
+            //Enable Location Reminder Options
+            editTextLocation.setEnabled(true);
+            buttonVerify.setEnabled(true);
+            editTextLocation.setText(taskInstance.getAddress());
+            editTextLocation.setHint(R.string.locationBox);
+
+            //Disable Date Reminder Options
+            editTextDate.setEnabled(false);
+            editTextTime.setEnabled(false);
+            buttonDate.setEnabled(false);
+            buttonTime.setEnabled(false);
+            editTextDate.setText("");
+            editTextTime.setText("");
+            editTextDate.setHint(R.string.disableMessage);
+            editTextTime.setHint(R.string.disableMessage);
+
+        }
+        else{
+            //Disable Location Reminder Options
+            editTextLocation.setEnabled(false);
+            buttonVerify.setEnabled(false);
+            CheckboxAddressVerify.setChecked(false);
+            editTextLocation.setText("");
+            editTextLocation.setHint("Disabled");
+
+            //Enable Date Reminder Options
+            editTextDate.setEnabled(true);
+            editTextTime.setEnabled(true);
+            buttonDate.setEnabled(true);
+            buttonTime.setEnabled(true);
+            editTextDate.setText(taskInstance.getDate());
+            if((taskInstance.getHour() == 0) && (taskInstance.getMinute() == 0)){
+                editTextTime.setText("");
+                System.out.println("@@@@@@@@@@@@@-Empty Time2");
+            }
+            else{
+                editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
+            }
+            editTextDate.setHint(R.string.dateBox);
+            editTextTime.setHint(R.string.timeBox);
+        }
+
 
         buttonDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,14 +174,15 @@ public class EditTaskActivity extends AppCompatActivity {
                                 if(minute < 10){
                                     String minS = String.format("%02d", minute);
                                     editTextTime.setText(hourOfDay + ":" + minS);
+                                    System.out.println("@@@@@@@@@@@@@-Time Under 10");
                                 }
                                 else{
                                     editTextTime.setText(hourOfDay + ":" + minute);
+                                    System.out.println("@@@@@@@@@@@@@-Time Default");
                                 }
 
                                 hour[0] = hourOfDay;
                                 min[0] = minute;
-
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -211,8 +264,6 @@ public class EditTaskActivity extends AppCompatActivity {
         });
 
 
-
-
         Button editButtonSave = this.findViewById(R.id.editbuttonSave);
         editButtonSave.setOnClickListener(
                 new View.OnClickListener() {
@@ -234,25 +285,8 @@ public class EditTaskActivity extends AppCompatActivity {
                                 //Variables to put into Database
                                 editTitle.getText().toString(); //String Title
 
-                                //Location[0].getLatitude(); //Long
-                                //Location[0].getLongitude(); //Long
-                                //editTextLocation.getText().toString(); //String Address
-                                //CheckboxEnableAddress.isChecked(); //Boolean
-                                //CheckboxAddressVerify.isChecked(); //Boolean
-
-                                /*
-                                System.out.println("Title: " + editTextTitle.getText().toString() +
-                                        "\nLatitude: " + Location[0].getLatitude() +
-                                        "\nLongitude: " + Location[0].getLongitude() +
-                                        "\nLocation: " + editTextLocation.getText().toString() +
-                                        "\nEnableAddress: " + CheckboxEnableAddress.isChecked() +
-                                        "\nAddressVerify: " + CheckboxAddressVerify.isChecked()
-                                );
-                                 */
-
-
                                 TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                        TasksFragment.tasks.size(),
+                                        TasksFragment.tasks.size(), //taskInstance.getId(),
                                         editTitle.getText().toString(),
                                         Location[0].getLatitude(),
                                         Location[0].getLongitude(),
@@ -265,9 +299,11 @@ public class EditTaskActivity extends AppCompatActivity {
                                 );
 
                                 finish();
-                                TasksFragment.getAdapter().notifyDataSetChanged();
+                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
                                 //Update the Task function is Below
-                                TasksFragment.updateTask(taskInstance);
+                                TasksFragment.updateTaskDB(taskInstance);
+                                //TasksFragment.
+
                                 //----------------------------------------------------------------
                             }
                             else{
@@ -302,7 +338,7 @@ public class EditTaskActivity extends AppCompatActivity {
                                         //Boolean for Date True
 
                                         TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                                TasksFragment.tasks.size(),
+                                                taskInstance.getId(),
                                                 editTitle.getText().toString(),
                                                 0,
                                                 0,
@@ -318,8 +354,8 @@ public class EditTaskActivity extends AppCompatActivity {
                                         //Update the Task function is Below
                                         //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
                                         finish();
-                                        TasksFragment.getAdapter().notifyDataSetChanged();
-                                        TasksFragment.updateTask(taskInstance);
+                                        TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                                        TasksFragment.updateTaskDB(taskInstance);
                                         //----------------------------------------------------------------
                                     }
                                     else{
@@ -346,7 +382,7 @@ public class EditTaskActivity extends AppCompatActivity {
                                 //Boolean for Date False
 
                                 TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                        TasksFragment.tasks.size(),
+                                        taskInstance.getId(),
                                         editTitle.getText().toString(),
                                         0,
                                         0,
@@ -357,12 +393,15 @@ public class EditTaskActivity extends AppCompatActivity {
                                         0,
                                         0
                                 );
+                                TasksFragment.updateTaskDB(taskInstance);
 
                                 //Update the Task function is Below
                                 //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
+                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
                                 finish();
-                                TasksFragment.getAdapter().notifyDataSetChanged();
-                                TasksFragment.updateTask(taskInstance);
+
+
+
                                 //----------------------------------------------------------------
 
 
@@ -371,6 +410,23 @@ public class EditTaskActivity extends AppCompatActivity {
                     } // Save Click
                 });
 
+
+        Button editButtonDelete = this.findViewById(R.id.editDeleteBtn);
+        editButtonDelete.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //taskInstance
+                        TasksFragment.tasks.remove(taskInstance.getId()-1);
+
+                        //Update the Task function is Below
+                        //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
+                        finish();
+                        TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                        TasksFragment.deleteTaskDB(taskInstance);
+                    }
+                });
     }
 
     public Address getLocationFromAddress(String strAddress) {

@@ -238,24 +238,8 @@ public class NewTaskActivity extends AppCompatActivity {
                                 //Variables to put into Database
                                 editTextTitle.getText().toString(); //String Title
 
-                                //Location[0].getLatitude(); //Long
-                                //Location[0].getLongitude(); //Long
-                                //editTextLocation.getText().toString(); //String Address
-                                //CheckboxEnableAddress.isChecked(); //Boolean
-                                //CheckboxAddressVerify.isChecked(); //Boolean
-
-                                /*
-                                System.out.println("Title: " + editTextTitle.getText().toString() +
-                                        "\nLatitude: " + Location[0].getLatitude() +
-                                        "\nLongitude: " + Location[0].getLongitude() +
-                                        "\nLocation: " + editTextLocation.getText().toString() +
-                                        "\nEnableAddress: " + CheckboxEnableAddress.isChecked() +
-                                        "\nAddressVerify: " + CheckboxAddressVerify.isChecked()
-                                );
-                                 */
-
                                 TasksFragment.tasks.add(new Task(
-                                        TasksFragment.tasks.size(),
+                                        TasksFragment.tasks.size()+1,
                                         editTextTitle.getText().toString(),
                                         Location[0].getLatitude(),
                                         Location[0].getLongitude(),
@@ -305,7 +289,7 @@ public class NewTaskActivity extends AppCompatActivity {
                                         //Boolean for Date True
 
                                         TasksFragment.tasks.add(new Task(
-                                                TasksFragment.tasks.size(),
+                                                TasksFragment.tasks.size()+1,
                                                 editTextTitle.getText().toString(),
                                                 0,
                                                 0,
@@ -348,7 +332,7 @@ public class NewTaskActivity extends AppCompatActivity {
                                 //Boolean for Date False
 
                                 TasksFragment.tasks.add(new Task(
-                                        TasksFragment.tasks.size(),
+                                        TasksFragment.tasks.size()+1,
                                         editTextTitle.getText().toString(),
                                         0,
                                         0,

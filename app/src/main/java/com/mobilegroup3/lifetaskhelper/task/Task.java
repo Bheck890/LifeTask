@@ -1,5 +1,7 @@
 package com.mobilegroup3.lifetaskhelper.task;
 
+import android.graphics.Color;
+
 public class Task {
 
     /*
@@ -138,7 +140,8 @@ public class Task {
     @Override
     public String toString() {
 
-        return "Task: " + getTitle() +
+        return "\nID: " + getId() +
+                "\nTask: " + getTitle() +
                "\nlatitude: " + getLatitude() +
                 "\nlong: " + getLongitude() +
                 "\naddress: " + getAddress() +
@@ -256,5 +259,14 @@ public class Task {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public int getReminderColor(){
+        if(getEnable_address()) //Location
+            return (Color.GREEN);
+        else if(!getDate().isEmpty()) //Date
+            return (Color.BLUE);
+        else // No Reminder
+            return (Color.WHITE); //(View.INVISIBLE);
     }
 }
