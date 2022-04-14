@@ -51,8 +51,8 @@
     <string name="school">School: Seminole State College</string>
     <string name="version">Version 0.0.1</string>
 
-    <string name="contactUs">If there is anything \nthat can improve the application,
-        \nplease enter it below and it will be sent to the Dev Team.</string>
+    <string name="contactUs">If there is anything that can improve the application,
+        please enter it below and it will be sent to the Dev Team.</string>
     <string name="message">Enter Message Below: </string>
     <string name="messageBox">Message to Team</string>
     <string name="name">Name</string>
