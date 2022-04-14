@@ -38,10 +38,11 @@ public class Actions {
                    int hour,
                    int minute)
     {
+        setActionNote(description);
         this.taskID = taskID;
-        this.actionNote = description;
+        this.actionNote = getActionNote();
         this.date = dateAndTimeFormatting(date,hour,minute);
-        this.Location = "N/A"; //Empty Location
+        this.Location = "N/A"; //Empty Location Have it not appear later.
     }
 
     //Set Action with Defaults and the Location Data (New task Created with location)
@@ -54,10 +55,11 @@ public class Actions {
                    double longitude,
                    String address)
     {
+        setActionNote(description);
         this.taskID = taskID;
-        this.actionNote = description;
+        this.actionNote = getActionNote();
         this.date = dateAndTimeFormatting(date,hour,minute);
-        this.Location = address + "(lat: " + latitude + ", long: " + longitude + ")";
+        this.Location = address + "\n(lat: " + latitude + ", long: " + longitude + ")";
     }
 
     @Override
@@ -109,6 +111,13 @@ public class Actions {
 
     public String getActionNote() {
         return actionNote;
+    }
+
+    public void setActionNote(String actionNote) {
+        if (actionNote.isEmpty())
+            this.actionNote = "No Description Set";
+        else
+            this.actionNote = actionNote;
     }
 
     public String getDate() {

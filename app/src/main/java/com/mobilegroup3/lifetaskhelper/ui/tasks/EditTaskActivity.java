@@ -75,17 +75,13 @@ public class EditTaskActivity extends AppCompatActivity {
         if (taskId != -1) { //
             editTitle.setText(taskInstance.getTitle());
             editTextDate.setText(taskInstance.getDate());
-            editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
             editTextLocation.setText(taskInstance.getAddress());
             CheckboxAddressVerify.setChecked(taskInstance.getAddress_verified());
             CheckboxEnableAddress.setChecked(taskInstance.getEnable_address());
             location[0] = taskInstance.getAddress_verified();
 
-            if((taskInstance.getHour() == 0) && (taskInstance.getMinute() == 0)){
-                editTextTime.setText("");
-                System.out.println("@@@@@@@@@@@@@-Empty Time1");
-            }
-            else{
+            //Set the time if there is time in it.
+            if(!((taskInstance.getHour() == 0) && (taskInstance.getMinute() == 0))){
                 hour[0] = taskInstance.getHour();
                 min[0] = taskInstance.getMinute();
             }
@@ -131,7 +127,13 @@ public class EditTaskActivity extends AppCompatActivity {
                 System.out.println("@@@@@@@@@@@@@-Empty Time2");
             }
             else{
-                editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
+                //editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
+                editTextTime.setText(
+                        TimeFormatting(
+                            taskInstance.getHour(),
+                            taskInstance.getMinute()
+                        )
+                );
             }
             editTextDate.setHint(R.string.dateBox);
             editTextTime.setHint(R.string.timeBox);
@@ -171,6 +173,11 @@ public class EditTaskActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
+
+                                editTextTime.setText(TimeFormatting(hourOfDay,minute));
+
+                                /*
+
                                 if(minute < 10){
                                     String minS = String.format("%02d", minute);
                                     editTextTime.setText(hourOfDay + ":" + minS);
@@ -180,6 +187,7 @@ public class EditTaskActivity extends AppCompatActivity {
                                     editTextTime.setText(hourOfDay + ":" + minute);
                                     System.out.println("@@@@@@@@@@@@@-Time Default");
                                 }
+                                 */
 
                                 hour[0] = hourOfDay;
                                 min[0] = minute;
@@ -208,7 +216,12 @@ public class EditTaskActivity extends AppCompatActivity {
                     buttonDate.setEnabled(true);
                     buttonTime.setEnabled(true);
                     editTextDate.setText(taskInstance.getDate());
-                    editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
+                    editTextTime.setText(
+                            TimeFormatting(
+                                    taskInstance.getHour(),
+                                    taskInstance.getMinute()
+                            )
+                    );
                     editTextDate.setHint(R.string.dateBox);
                     editTextTime.setHint(R.string.timeBox);
 
@@ -335,10 +348,9 @@ public class EditTaskActivity extends AppCompatActivity {
                                                 "\nDate: " + editTextDate.getText().toString() +
                                                 "\nTime: " + Time
                                         );
-                                        //Boolean for Date True
 
                                         TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                                taskInstance.getId(),
+                                                TasksFragment.tasks.size(), //taskInstance.getId(),
                                                 editTitle.getText().toString(),
                                                 0,
                                                 0,
@@ -449,4 +461,34 @@ public class EditTaskActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    //Returns the time with AM PM formatting
+    public String TimeFormatting(int hour, int minute){
+        String date1 = "";
+        if(hour > 12) {
+            int hrS = hour;
+            if (hour > 12)
+                hrS -= 12;
+            if(minute < 10){
+                String minS = String.format("%02d", minute);
+                date1 += hrS + ":" + minS + " PM";
+            }
+            else{
+                date1 += hrS + ":" + minute  + " PM";
+            }
+        }
+        else if ((hour == 0) && (minute == 0)){
+            date1 = "";
+            System.out.println("@@@@@@@@@@@@@-Empty Time1");
+        }
+        else if(minute < 10){
+            String minS = String.format("%02d", minute); //adds a zero in front of the min number
+            date1 += hour + ":" + minS  + " AM";
+        }
+        else {
+            date1 += hour + ":" + minute + " AM";
+        }
+        return date1;
+    }
+
 }

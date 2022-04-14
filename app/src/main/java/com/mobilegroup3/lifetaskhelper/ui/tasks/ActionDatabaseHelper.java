@@ -54,7 +54,7 @@ public class ActionDatabaseHelper extends SQLiteOpenHelper {
 
             //insertLocationDefault(db, "Example Location note"); // Green
             //insertDateDefault(db, "Example Date note"); //Blue
-            insertAction(db,"Description Test"); // Invisible
+            insertAction(db,"Initial Description Test"); // Invisible
             //insertAllDataDefault(db, "Example Everything note");
         }
         if (oldVersion < 2) { //Version 1

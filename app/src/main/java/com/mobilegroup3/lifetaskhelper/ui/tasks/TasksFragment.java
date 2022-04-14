@@ -28,8 +28,10 @@ import java.util.ArrayList;
 public class TasksFragment extends Fragment {
 
     //Database number Used for Testing and a new Database if the old one has bad Information
+    // or if the database had a bug and want to rest the values
+
     //Recommend to reset to 1 after you uninstall the application on the device that is being used.
-    public static int DatabaseNumber = 1;
+    public static int DatabaseNumber = 6;
 
     //Task Database Variables.
     public static ArrayList<Task> tasks = new ArrayList<>();

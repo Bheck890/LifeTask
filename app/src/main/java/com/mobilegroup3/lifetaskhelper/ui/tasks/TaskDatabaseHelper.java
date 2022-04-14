@@ -99,20 +99,12 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                     + "HOUR INT(4) NOT NULL DEFAULT(0),"
                     + "MINUTE INT(4) NOT NULL DEFAULT(0));");
 
-            //insertLocationDefault(db, "Example Location note"); // Green
-            //insertDateDefault(db, "Example Date note"); //Blue
+            insertLocationDefault(db, "Example Location note"); // Green
+            insertDateDefault(db, "Example Date note"); //Blue
             insertTask(db, "Example Basic note"); // Invisible
-            //insertAllDataDefault(db, "Example Everything note");
         }
         if (oldVersion < 2) { //Version 1
-            /*
-            db.execSQL("CREATE TABLE " + A_TB_NAME + " ("
-                    + "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "TASK_ID INTEGER,"
-                    + "DESCRIPTION TEXT,"
-                    + "DATE TEXT,"
-                    + "LOCATION TEXT);");
-             */
+
         }
         if (oldVersion < 3) { //Version 2
             //db.execSQL("ALTER TABLE Tasks ADD COLUMN \"LIKE\" INTEGER NOT NULL DEFAULT(0);");

@@ -28,27 +28,11 @@ public class Task {
     //------------------------- (BHeck) I want to do,
             or you guys can do it if you got time (they are pretty simple)
 
-    (A) Small Feature to add, might be hard?
-     - See how you can edit the Task from the info page and have it updated to the Information pane,
-
-    (B) UPDATE (Date and Location) inside the task database from a new action.
-    - after the action is preformed the action is to replace a new reminder for the task
-       based on what the task was prior
-       [if date its a new date] else location then a new location notification spot
-       (Simple Update from the edit update system)
-
     (C) (Date Comparison) Have the system compare the current date
      - update Task Message date info, to the last time the action was preformed for that task
         then to appear on the task list.
 
-    Things to fix
-    - When the task is made have it create an optional first action saying it got done now
-        or to mark will be preformed later
-    - In Edit mode if you switch between date and location 0:0 Appears in the time box
     //-------------------------
-
-    Contact us page is broken?
-    - why is it not displaying?
 
     ---------------------------------------------------------------
     Project Future things:
@@ -58,6 +42,25 @@ public class Task {
         in case you did it yesterday but you forgot to track the action
     - if the user changed the task and then press back button, then there should be a notice
         saying the changes are not saved.
+    - After Performing a task, if the user wants to add a Date or location to the task,
+        have it open the settings after the action is entered, to input the Data to set the reminder.
+         - would need to disable the Date and Location options if they do select it,
+            since they will change it after the action is preformed.
+    - When the task is made have it create an optional first action saying it got done now
+        or to mark will be preformed later
+
+
+      ### Locations Features Update:
+        - pre determined set of Locations and past locations so they can mark a location with a
+            known name so they know where the location cords would be. and if they get there again
+        - Way to input the local grocery store or something.
+        - Autofill address in the text box when entering address.
+        - for the location implement Google maps box so they can just use that instead of address,
+            (Requires API Access)
+
+    - other features that would make this application helpful and cool to use?
+
+
 
     Visible cosmetics
     - Message informing the user to add a new Task when there are no tasks
@@ -75,10 +78,21 @@ public class Task {
     - Update Reminder button to be Red if the date surpasses the current date,
         as it would be overdue
 
-    Backend Bugs:
+    Backend Bugs: (need Inspection)
      - When you delete a task have it also delete the Actions that were also for that Task
      - during Development there was an issue of index out of bounds for adding 3 and removing 2
         then the index gets out of wack and needs to be inspected.
+     - with 3 Tasks (Defaults (location,Date,task)) - after editing task 2,
+        the ordering of the tasks change (need further Testing and inspection)
+            - (bug update n) [if notice something else with the ordering place note here]
+            - (Bug Update 2) it glitches the position id indicator
+                to a number and can override other tasks
+            - (bug update 3) after editing the task settings from initially the info page
+                The issue is also occurring.
+
+     - longitude Database variable does not have the trailing numbers (Inspection)
+     - if the user changes the address the valid address is changed to disable
+        until it is verified again (bug)
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -86,7 +100,6 @@ public class Task {
     some custom art work and simple changing, for the menu bar options.
     Setup to Email an email in contact us: not Needed
     but if you want to make it email you or me would be cool
-
 
     Background and Future Issues:
     when saved have it in a format for the notification handler to push a notification.

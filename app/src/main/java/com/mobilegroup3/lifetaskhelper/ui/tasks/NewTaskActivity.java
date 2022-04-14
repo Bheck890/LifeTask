@@ -94,33 +94,7 @@ public class NewTaskActivity extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                // Fix hour if that becomes a problem. but just going to keep here.
-                                // Need to add AM/PM aspect if change the hour.
-                                /*
-                                if(hourOfDay > 12) {
-                                    int hrS = hourOfDay;
-                                    if (hourOfDay > 12)
-                                        hrS -= 12;
-                                    if(minute < 10){
-                                        String minS = String.format("%02d", minute);
-
-                                        editTextTime.setText(hrS + ":" + minS);
-                                    }
-                                    else{
-                                        editTextTime.setText(hrS + ":" + minute);
-                                    }
-                                }
-                                else
-                                */
-
-                                if(minute < 10){
-                                    String minS = String.format("%02d", minute);
-                                    editTextTime.setText(hourOfDay + ":" + minS);
-                                }
-                                else{
-                                    editTextTime.setText(hourOfDay + ":" + minute);
-                                }
-
+                                editTextTime.setText(TimeFormatting(hourOfDay,minute));
                                 hour[0] = hourOfDay;
                                 min[0] = minute;
 
@@ -165,7 +139,6 @@ public class NewTaskActivity extends AppCompatActivity {
                     buttonTime.setEnabled(true);
                     editTextDate.setHint(R.string.dateBox);
                     editTextTime.setHint(R.string.timeBox);
-
                 }
                 else{//(!(location[0])){
                     //Enable Location Reminder Options
@@ -197,7 +170,6 @@ public class NewTaskActivity extends AppCompatActivity {
                 String Address = editTextLocation.getText().toString();
 
                 try {
-
                     Location[0] = getLocationFromAddress(Address);
                     System.out.println("Latitude: " + Location[0].getLatitude());
                     System.out.println("Longitude: " + Location[0].getLongitude());
@@ -358,7 +330,34 @@ public class NewTaskActivity extends AppCompatActivity {
                 });
     }
 
-
+    //Returns the time with AM PM formatting
+    public String TimeFormatting(int hour, int minute){
+        String date1 = "";
+        if(hour > 12) {
+            int hrS = hour;
+            if (hour > 12)
+                hrS -= 12;
+            if(minute < 10){
+                String minS = String.format("%02d", minute);
+                date1 += hrS + ":" + minS + " PM";
+            }
+            else{
+                date1 += hrS + ":" + minute  + " PM";
+            }
+        }
+        else if ((hour == 0) && (minute == 0)){
+            date1 = "";
+            System.out.println("@@@@@@@@@@@@@-Empty Time1");
+        }
+        else if(minute < 10){
+            String minS = String.format("%02d", minute); //adds a zero in front of the min number
+            date1 += hour + ":" + minS  + " AM";
+        }
+        else {
+            date1 += hour + ":" + minute + " AM";
+        }
+        return date1;
+    }
 
     public Address getLocationFromAddress(String strAddress) {
         //https://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address/3574792#3574792

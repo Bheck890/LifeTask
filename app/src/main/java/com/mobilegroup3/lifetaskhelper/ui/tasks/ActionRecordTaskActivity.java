@@ -88,8 +88,8 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
         //Setup to set what the Fields have in them.
         if (taskId != -1) { //
             editTextViewTitle.setText(taskInstance.getTitle());
-            editTextDate.setText(taskInstance.getDate());
-            editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
+            //editTextDate.setText(taskInstance.getDate());
+            //editTextTime.setText(taskInstance.getHour() + ":" + taskInstance.getMinute());
             editTextLocation.setText(taskInstance.getAddress());
             location[0] = taskInstance.getAddress_verified();
 
@@ -140,7 +140,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             editTextTime.setEnabled(true);
             buttonDate.setEnabled(true);
             buttonTime.setEnabled(true);
-            editTextDate.setText(""); //taskInstance.getDate()
+            editTextDate.setText("");
             editTextTime.setText("");
             editTextDate.setHint(R.string.dateBox);
             editTextTime.setHint(R.string.timeBox);
@@ -204,6 +204,10 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
+
+                                editTextTime.setText(TimeFormatting(hourOfDay,minute));
+
+                                /*
                                 if(minute < 10){
                                     String minS = String.format("%02d", minute);
                                     editTextTime.setText(hourOfDay + ":" + minS);
@@ -213,6 +217,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                     editTextTime.setText(hourOfDay + ":" + minute);
                                     System.out.println("@@@@@@@@@@@@@-Time Default");
                                 }
+                                 */
 
                                 hour[0] = hourOfDay;
                                 min[0] = minute;
@@ -247,6 +252,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             }
         });
 
+        int version = 0;
         //Save Button
         Button buttonSave = this.findViewById(R.id.recordSaveBtn);
         buttonSave.setOnClickListener(
@@ -279,10 +285,22 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         "\nAddress: " + editTextLocation.getText().toString()
                                 );
 
-                                /*
-                                TasksFragment.tasks.add(new Task(
-                                        TasksFragment.tasks.size()+1,
-                                        editTextViewTitle.getText().toString(),
+                                Actions action = new Actions(
+                                        taskId,
+                                        editTextDescription.getText().toString(),
+                                        date,
+                                        Hour,
+                                        minute,
+                                        Location[0].getLatitude(),
+                                        Location[0].getLongitude(),
+                                        editTextLocation.getText().toString()
+                                );
+                                addAction(action);
+
+                                //places new Location info task
+                                TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
+                                        taskInstance.getId(), //taskInstance.getId(),
+                                        taskInstance.getTitle(),
                                         Location[0].getLatitude(),
                                         Location[0].getLongitude(),
                                         editTextLocation.getText().toString(),
@@ -290,34 +308,61 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         CheckboxAddressVerify.isChecked(),
                                         "",
                                         0,
-                                        0)
+                                        0
                                 );
 
                                 finish();
-                                TasksFragment.getAdapter().notifyDataSetChanged();
-                                //Update the Task function is Below
-                                TasksFragment.addLastAddedTask();
-                                 */
+                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                                TasksFragment.updateTaskDB(taskInstance);
 
                                 //----------------------------------------------------------------
                             }
                             else{
+                                // @@@@@@@@@@@@@@@@@@@@@
+                                // Future Warn User when this occurs that the location, will not be
+                                // updated in the task unless there is a valid Address in the field
+                                // @@@@@@@@@@@@@@@@@@@@@
+
                                 Toast toast = Toast.makeText(ActionRecordTaskActivity.this,
-                                        "Valid Address not inputted",
+                                        "Valid Address not inputted \nLocation Reminder Turned off",
                                         Toast.LENGTH_LONG);
                                 toast.show();
+
+                                //places empty Information into the Task if there is no (Date/Location)
+                                TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
+                                        taskInstance.getId(),
+                                        taskInstance.getTitle(),
+                                        0,
+                                        0,
+                                        "",
+                                        false,
+                                        false,
+                                        "",
+                                        0,
+                                        0
+                                );
+
+                                //Update the Task function is Below
+                                //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
+                                finish();
+                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                                TasksFragment.updateTaskDB(taskInstance);
+
                             }
+
 
                         }
                         else{ //Exit with just setting the Title and optional Date
 
+                            //check if anything is even in the date or time area else do only Title
                             if(editTextDate.getText().toString().length() > 1 ||
                                     editTextTime.getText().toString().length() > 1){
 
+                                //Checks which one needs to be Fixed Date or the time needs to have specific size
                                 if(editTextDate.getText().toString().length() >= 10) {
-                                    //System.out.println("Valid Date: " + editTextDate.getText().toString());
+                                    System.out.println("@@Valid Date: " + editTextDate.getText().toString());
                                     if(editTextTime.getText().toString().length() >= 4) {
-                                        System.out.println("Valid Time: " + editTextTime.getText().toString());
+                                        System.out.println("@@Valid Time: " + editTextTime.getText().toString());
 
                                         //----------------------------------------------------------------
                                         //Variables to put into Database
@@ -331,12 +376,21 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                                 "\nTime: " + Time
                                         );
 
-                                        //Boolean for Date True
 
-                                        /*
-                                        TasksFragment.tasks.add(new Task(
-                                                TasksFragment.tasks.size()+1,
-                                                editTextViewTitle.getText().toString(),
+                                        Actions action = new Actions(
+                                                taskId,
+                                                editTextDescription.getText().toString(),
+                                                date,
+                                                Hour,
+                                                minute
+                                        );
+                                        addAction(action);
+
+
+                                        //places new Date info task
+                                        TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
+                                                taskInstance.getId(),
+                                                taskInstance.getTitle(),
                                                 0,
                                                 0,
                                                 "",
@@ -344,15 +398,15 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                                 false,
                                                 editTextDate.getText().toString(),
                                                 hour[0],
-                                                min[0])
+                                                min[0]
                                         );
 
                                         //Update the Task function is Below
                                         //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
                                         finish();
-                                        TasksFragment.getAdapter().notifyDataSetChanged();
-                                        TasksFragment.addLastAddedTask();
-                                         */
+                                        TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                                        TasksFragment.updateTaskDB(taskInstance);
+
                                         //----------------------------------------------------------------
                                     }
                                     else{
@@ -385,13 +439,27 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         Hour,
                                         minute
                                 );
-
-
                                 addAction(action);
+
+                                //places empty Information into the Task if no (Date/Location)
+                                TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
+                                        taskInstance.getId(),
+                                        taskInstance.getTitle(),
+                                        0,
+                                        0,
+                                        "",
+                                        false,
+                                        false,
+                                        "",
+                                        0,
+                                        0
+                                );
 
                                 //Update the Task function is Below
                                 //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
                                 finish();
+                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                                TasksFragment.updateTaskDB(taskInstance);
                                 //----------------------------------------------------------------
 
 
@@ -399,6 +467,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                         } // if (Location) else (Date Reminder)/else (Title)
                     } // Save Click
                 });
+
     }
 
     //Adds Action to the Database
@@ -448,4 +517,51 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    //Returns the time with AM PM formatting
+    public String TimeFormatting(int hour, int minute){
+        String date1 = "";
+        if(hour > 12) {
+            int hrS = hour;
+            if (hour > 12)
+                hrS -= 12;
+            if(minute < 10){
+                String minS = String.format("%02d", minute);
+                date1 += hrS + ":" + minS + " PM";
+            }
+            else{
+                date1 += hrS + ":" + minute  + " PM";
+            }
+        }
+        else if ((hour == 0) && (minute == 0)){
+            date1 = "";
+            System.out.println("@@@@@@@@@@@@@-Empty Time1");
+        }
+        else if(minute < 10){
+            String minS = String.format("%02d", minute); //adds a zero in front of the min number
+            date1 += hour + ":" + minS  + " AM";
+        }
+        else {
+            date1 += hour + ":" + minute + " AM";
+        }
+        return date1;
+    }
+
+    //Easier control flow of actions to modify the Tasks
+    public void updateTaskInformation(int version){
+        /*
+        Version:
+        0 = Pass new Date into Task
+        1 = Pass new location into Task
+        Default = put into default only task name (No Date or Location)
+
+
+         */
+
+        if(version == 0){
+
+        }
+
+    }
+
 }
