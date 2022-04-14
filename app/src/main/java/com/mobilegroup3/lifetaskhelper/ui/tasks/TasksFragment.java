@@ -27,16 +27,24 @@ import java.util.ArrayList;
 
 public class TasksFragment extends Fragment {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
-    private static SQLiteOpenHelper TaskDatabase;
-    private static final String TB_NAME = "TASK"; // the name of our Table
+    //Database number Used for Testing and a new Database if the old one has bad Information
+    //Recommend to reset to 1 after you uninstall the application on the device that is being used.
+    public static int DatabaseNumber = 1;
 
-    private TasksViewModel homeViewModel;
-    private FragmentHomeBinding binding;
-    static TaskViewAdapter taskAdapter;
+    //Task Database Variables.
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    private static SQLiteOpenHelper taskDatabase;
+    private static final String T_TB_NAME = TaskDatabaseHelper.TB_NAME; // the name of our Table
+    private TaskListView listView;
+
+    //Database Systems that manipulate the Data.
     private SQLiteDatabase db;
     private Cursor cursor;
-    private TaskListView listView;
+
+    //Fragment Variables.
+    private TasksViewModel homeViewModel;
+    private FragmentHomeBinding binding;
+    static TaskViewAdapter taskAdapter; //Adapter for the buttons in the listView
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,13 +55,14 @@ public class TasksFragment extends Fragment {
 
         listView = (TaskListView) binding.taskList;
 
+        //After Actions are Gathered, the Task list can show helpful Information
         if(tasks.isEmpty()) {
-            TaskDatabase = new TaskDatabaseHelper(getContext());
+            taskDatabase = new TaskDatabaseHelper(getContext()); //creates instance of task Database
             try {
-                System.out.println("@@@@@@@@@@@@-Reading Database");
+                System.out.println("@@@@@@@@@@@@-Initiate Task Database");
 
-                db = TaskDatabase.getReadableDatabase();
-                cursor = db.query ("TASK",
+                db = taskDatabase.getReadableDatabase();
+                cursor = db.query (T_TB_NAME,
                         new String[] {
                                 "_id",
                                 "TITLE",
@@ -71,7 +80,7 @@ public class TasksFragment extends Fragment {
                 //Move to the first record in the Cursor
                 if (cursor.moveToFirst()) {
                     while (!cursor.isAfterLast()) {
-                        System.out.println("@@@@@@@@@@@@-Reading Database Line");
+                        System.out.println("@@@@@@@@@@@@-Reading Task Database Line");
                         int _id = cursor.getInt(0);
                         String title = cursor.getString(1);
                         double latitude = cursor.getDouble(2);
@@ -100,20 +109,30 @@ public class TasksFragment extends Fragment {
                 }
 
                 taskAdapter = new TaskViewAdapter(getContext(), tasks);
+
+                /*
+                //Output the tasks for Debugging verification
                 for (Task Tas: tasks) {
                     System.out.println("@@@@@@@@@@@@-" + Tas);
                 }
-                //System.out.println(tasks);
+                 */
+
                 listView.setAdapter(taskAdapter);
 
+                //Close Database Variables
                 cursor.close();
                 db.close();
+                //System.out.println("@@@@@@@@@@@@- Closed Task Database Connection - @@@@@@@@@");
+
+
             } catch (SQLiteException e) {
-                System.out.println("@@@@@@@@@@@@-Error Reading Database");
-                Toast toast = Toast.makeText(getContext(), "Database unavailable", Toast.LENGTH_SHORT);
+                System.out.println("@@@@@@@@@@@@-Error Reading Task Database");
+                Toast toast = Toast.makeText(getContext(), "Task Database unavailable", Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
+
+
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -122,88 +141,14 @@ public class TasksFragment extends Fragment {
                textView.setText(s);
             }
         });
-
-
         return root;
-    }
-
-    public void refreshTasksDB(){
-        taskAdapter.clear();
-        tasks.clear();
-        System.out.println("@@@@@@@@---=Cleared Task List and adding back from Database");
-        if(tasks.isEmpty()) {
-            TaskDatabase = new TaskDatabaseHelper(getContext());
-            try {
-                System.out.println("@@@@@@@@@@@@-Reading Database");
-
-                db = TaskDatabase.getReadableDatabase();
-                cursor = db.query ("TASK",
-                        new String[] {
-                                "_id",
-                                "TITLE",
-                                "LATITUDE",
-                                "LONGITUDE",
-                                "ADDRESS",
-                                "ENABLE_ADDRESS",
-                                "ADDRESS_VERIFIED",
-                                "DATE",
-                                "HOUR",
-                                "MINUTE"
-                        }, //
-                        null, null, null, null, null);
-
-                //Move to the first record in the Cursor
-                if (cursor.moveToFirst()) {
-                    while (!cursor.isAfterLast()) {
-                        System.out.println("@@@@@@@@@@@@-Reading Database Line");
-                        int _id = cursor.getInt(0);
-                        String title = cursor.getString(1);
-                        double latitude = cursor.getDouble(2);
-                        double longitude = cursor.getInt(3);
-                        String address = cursor.getString(4);
-                        boolean enable_address = (cursor.getInt(5) == 1);
-                        boolean address_verified = (cursor.getInt(6) == 1);
-                        String date = cursor.getString(7);
-                        int hour = cursor.getInt(8);
-                        int min = cursor.getInt(9);
-
-                        tasks.add(new Task(
-                                _id,
-                                title,
-                                latitude,
-                                longitude,
-                                address,
-                                enable_address,
-                                address_verified,
-                                date,
-                                hour,
-                                min
-                        ));
-                        cursor.moveToNext();
-                    }
-                }
-
-                taskAdapter = new TaskViewAdapter(getContext(), tasks);
-                for (Task Tas: tasks) {
-                    System.out.println("@@@@@@@@@@@@-" + Tas);
-                }
-                //System.out.println(tasks);
-                listView.setAdapter(taskAdapter);
-
-                cursor.close();
-                db.close();
-            } catch (SQLiteException e) {
-                System.out.println("@@@@@@@@@@@@-Error Reading Database");
-                Toast toast = Toast.makeText(getContext(), "Database unavailable", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        //Empty the data for the system. for a good refresh of the data.
         tasks.clear();
     }
 
@@ -211,6 +156,7 @@ public class TasksFragment extends Fragment {
         return taskAdapter;
     }
 
+    //Adds Tasks to the Database
     public static void addLastAddedTask() {
         Task newTaskInstance = tasks.get(tasks.size()-1);
 
@@ -227,12 +173,11 @@ public class TasksFragment extends Fragment {
         taskValues.put("HOUR", newTaskInstance.getHour());
         taskValues.put("MINUTE", newTaskInstance.getMinute());
 
-
         //Get a reference to the database and update the FAVORITE column
         try {
             //TaskDatabase = new TaskDatabaseHelper();
-            SQLiteDatabase db = TaskDatabase.getWritableDatabase();
-            db.insert(TB_NAME, null, taskValues);
+            SQLiteDatabase db = taskDatabase.getWritableDatabase();
+            db.insert(T_TB_NAME, null, taskValues);
             db.close();
 
         } catch(SQLiteException e) {
@@ -242,6 +187,7 @@ public class TasksFragment extends Fragment {
         }
     }
 
+    //Updates Tasks to the Database
     public static void updateTaskDB(Task TaskInstance) {
         System.out.println("@@@@@@@-UpdateTask2" + TaskInstance);
 
@@ -259,8 +205,8 @@ public class TasksFragment extends Fragment {
         //Get a reference to the database and update the FAVORITE column
         try {
             //TaskDatabase = new TaskDatabaseHelper();
-            SQLiteDatabase db = TaskDatabase.getWritableDatabase();
-            db.update(TB_NAME, taskValues,"_id = ?",
+            SQLiteDatabase db = taskDatabase.getWritableDatabase();
+            db.update(T_TB_NAME, taskValues,"_id = ?",
                     new String[] {Integer.toString(TaskInstance.getId())});
             db.close();
 
@@ -271,15 +217,16 @@ public class TasksFragment extends Fragment {
         }
     }
 
+    //Deletes the task.
     public static void deleteTaskDB(Task TaskInstance) {
         System.out.println("@@@@@@@-DeleteTask" + TaskInstance);
 
         //Get a reference to the database and update the FAVORITE column
         try {
             //TaskDatabase = new TaskDatabaseHelper();
-            SQLiteDatabase db = TaskDatabase.getWritableDatabase();
+            SQLiteDatabase db = taskDatabase.getWritableDatabase();
             //db.update(TB_NAME, taskValues,"_id = ?", new String[] {Integer.toString(TaskInstance.getId())});
-            db.delete(TB_NAME, "_id = ?", new String[]{Integer.toString(TaskInstance.getId())});
+            db.delete(T_TB_NAME, "_id = ?", new String[]{Integer.toString(TaskInstance.getId())});
             db.close();
 
         } catch(SQLiteException e) {
