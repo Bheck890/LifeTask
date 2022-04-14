@@ -7,36 +7,15 @@
     tools:context=".ui.tasks.TaskInformationActivity">
 
     <TextView
-        android:id="@+id/infoTxtLocation"
-        android:layout_width="295dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@string/locationBox"
-        android:hint="@string/locationBox"
-        app:layout_constraintStart_toStartOf="@+id/infoTextViewLocation"
-        app:layout_constraintTop_toBottomOf="@+id/infoTextViewLocation"
-        tools:ignore="TextContrastCheck" />
-
-    <TextView
-        android:id="@+id/infoTextViewLocation"
+        android:id="@+id/infoTextViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/preformedListLocation"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/titleInfo"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/infoTxtDescription"
-        app:layout_constraintTop_toBottomOf="@+id/infoTxtDescription" />
-
-    <TextView
-        android:id="@+id/infoTxtDescription"
-        android:layout_width="289dp"
-        android:layout_height="142dp"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@string/descriptionBox"
-        android:hint="@string/descriptionBox"
-        app:layout_constraintStart_toStartOf="@+id/infoTextViewActionList2"
-        app:layout_constraintTop_toBottomOf="@+id/infoTextViewActionList2"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/infoTxtTitle"
@@ -51,37 +30,6 @@
         app:layout_constraintTop_toTopOf="@+id/infoTextViewTitle"
         tools:ignore="TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/infoTextViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/title"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/infoTextViewActionList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/preformedList"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/infoTextViewTitle"
-        app:layout_constraintTop_toBottomOf="@+id/infoTextViewTitle" />
-
-    <TextView
-        android:id="@+id/infoTextViewActionList2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/preformedListNotes"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/infoTextViewTitle"
-        app:layout_constraintTop_toBottomOf="@+id/infoListViewTaskHistory" />
-
     <android.widget.Button
         android:id="@+id/infoBtnSettings"
         android:layout_width="54dp"
@@ -94,6 +42,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <TextView
+        android:id="@+id/infoTextViewActionList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/preformedList"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/infoTextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/infoTextViewTitle" />
+
     <ListView
         android:id="@+id/infoListViewTaskHistory"
         android:layout_width="350dp"
@@ -101,4 +59,46 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@+id/infoTextViewActionList"
         app:layout_constraintTop_toBottomOf="@+id/infoTextViewActionList" />
+
+    <TextView
+        android:id="@+id/infoTxtViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/preformedListNotes"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/infoTextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/infoListViewTaskHistory" />
+
+    <TextView
+        android:id="@+id/infoTxtDescription"
+        android:layout_width="341dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="@string/descriptionBox"
+        android:hint="@string/descriptionBox"
+        app:layout_constraintStart_toStartOf="@+id/infoTxtViewDescription"
+        app:layout_constraintTop_toBottomOf="@+id/infoTxtViewDescription"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/infoTextViewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preformedListLocation"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/infoTxtDescription"
+        app:layout_constraintTop_toBottomOf="@+id/infoTxtDescription" />
+
+    <TextView
+        android:id="@+id/infoTxtLocation"
+        android:layout_width="295dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="@string/locationBox"
+        android:hint="@string/locationBox"
+        app:layout_constraintStart_toStartOf="@+id/infoTextViewLocation"
+        app:layout_constraintTop_toBottomOf="@+id/infoTextViewLocation"
+        tools:ignore="TextContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

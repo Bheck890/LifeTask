@@ -20,6 +20,7 @@
     <string name="disableMessage">Disabled</string>
 
     <string name="title">*Title:</string>
+    <string name="titleInfo">Title:</string>
     <string name="titleBox">Title</string>
 
     <string name="date">Date:</string>

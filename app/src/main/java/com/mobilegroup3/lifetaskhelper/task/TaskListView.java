@@ -7,6 +7,8 @@ import android.widget.ListView;
 
 public class TaskListView extends ListView {
 
+    //Used in the XML file that Determines the list view system
+
     //add these three constructors
     public TaskListView(Context context){
         super(context);
@@ -30,7 +32,7 @@ public class TaskListView extends ListView {
             return false;
         }else{
             //handle the click
-            System.out.println("Position: " + position);
+            System.out.println("@@@@@@@@@@@@@ TASK-LIST-VIEW @@@@@@@@@@Position: " + position);
             return super.performItemClick(view, position, id);
         }
 
