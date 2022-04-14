@@ -6,21 +6,81 @@ public class Task {
 
     /*
     Need to work on:
-
-    Required Backend testing:!!@@@!!!!!
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    then its recording a new Task Event that the user Records the action was done.
-    (Bunch of SQL stuff)
-    then its Retrieving the times that event was recorded
-    then Retrieve the info in the Task. when press the Info button.
+    Improvements on the Clients Data and Indicators
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+    Needed for the Group project needed to complete: (Complete Application)
 
-    then I guess Setting up to check the users location when it matches a task location
+    1. Simple use of the words from the assignment Requirements.
+    - when the action is preformed the device location is recorded, and put into action database
+    - if you can reverse the coordinates into an address then
+        it adds the address into the Location Field with coordinates,
+        else it would just be coordinates.
 
-    Then its basically done. :)
+    2. Notification to remind the User of the specified reminder (if there is extra time and make it cool)
+     - have the date and time set to remind the user, needs to make an action task as their reminder is activated,
+         it just needs a system to notify the user.
+         if the date matches the date that they specified
+         **(mainly) if their location matches the address that they want to be notified at**
+            way to have app running in background checking for dates and location
 
-    Just a bit of SQL Left.
+
+    //------------------------- (BHeck) I want to do,
+            or you guys can do it if you got time (they are pretty simple)
+
+    (A) Small Feature to add, might be hard?
+     - See how you can edit the Task from the info page and have it updated to the Information pane,
+
+    (B) UPDATE (Date and Location) inside the task database from a new action.
+    - after the action is preformed the action is to replace a new reminder for the task
+       based on what the task was prior
+       [if date its a new date] else location then a new location notification spot
+       (Simple Update from the edit update system)
+
+    (C) (Date Comparison) Have the system compare the current date
+     - update Task Message date info, to the last time the action was preformed for that task
+        then to appear on the task list.
+
+    Things to fix
+    - When the task is made have it create an optional first action saying it got done now
+        or to mark will be preformed later
+    - In Edit mode if you switch between date and location 0:0 Appears in the time box
+    //-------------------------
+
+    Contact us page is broken?
+    - why is it not displaying?
+
+    ---------------------------------------------------------------
+    Project Future things:
+
+    Future Features
+    - add a area where you can add info for inputting an action before the default current date.
+        in case you did it yesterday but you forgot to track the action
+    - if the user changed the task and then press back button, then there should be a notice
+        saying the changes are not saved.
+
+    Visible cosmetics
+    - Message informing the user to add a new Task when there are no tasks
+        (Have it first have the user start by adding a Task, only on start up of install.)
+    - when there are no Actions preformed have it just show a screen with title and inform the user
+        to preform a task so there can be some data.
+    - if there is no (Description or Location) for the Action have the text on the screen shift
+        up, or not be shown if its not needed.
+    - Better Color choices?
+    - Verify it looks good on a Device in dark mode.
+
+    Possible Future Looks
+    - Info page to have a graph of the date specified in month format
+        to show how many times a month or week the action may occur
+    - Update Reminder button to be Red if the date surpasses the current date,
+        as it would be overdue
+
+    Backend Bugs:
+     - When you delete a task have it also delete the Actions that were also for that Task
+     - during Development there was an issue of index out of bounds for adding 3 and removing 2
+        then the index gets out of wack and needs to be inspected.
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 
     Side Tasks:
     some custom art work and simple changing, for the menu bar options.
@@ -33,14 +93,7 @@ public class Task {
     Date format for Notification Reminder
     Location coordinates way that can identify Location
 
-    way to have app running in background checking for dates and location
 
-
-    (After Action for data creation and edit, display is finished)
-    Preformed action, Recording screen to record notes and set new reminder information.
-
-    (After SQL File system created)
-    Delete Task, Button in edit page.
 
      */
 

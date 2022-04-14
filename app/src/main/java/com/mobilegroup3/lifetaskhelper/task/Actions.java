@@ -38,34 +38,9 @@ public class Actions {
                    int hour,
                    int minute)
     {
-        String date1 = date;
-        //this.actionID = actionID;
         this.taskID = taskID;
         this.actionNote = description;
-
-        if(hour > 12) {
-            int hrS = hour;
-            if (hour > 12)
-                hrS -= 12;
-            if(minute < 10){
-                String minS = String.format("%02d", minute);
-                date1 += " - " + hour + ":" + minS;
-            }
-            else{
-                date1 += " - " + hour + ":" + minute;
-            }
-        }
-        else if(minute < 10){
-            String minS = String.format("%02d", minute); //adds a zero in front of the min number
-            date1 += " - " + hour + ":" + minS;
-            System.out.println("@@@@@@@@@@@@@-Action Time Under 10");
-        }
-        else {
-            date1 += " - " + hour + ":" + minute;
-            System.out.println("@@@@@@@@@@@@@-Action Time Default");
-        }
-
-        this.date = date1;
+        this.date = dateAndTimeFormatting(date,hour,minute);
         this.Location = "N/A"; //Empty Location
     }
 
@@ -79,21 +54,9 @@ public class Actions {
                    double longitude,
                    String address)
     {
-        String date1 = date;
-        //this.actionID = actionID;
         this.taskID = taskID;
         this.actionNote = description;
-
-        if(minute < 10){
-            String minS = String.format("%02d", minute); //adds a zero in front of the min number
-            date1 += " - " + hour + ":" + minS;
-            System.out.println("@@@@@@@@@@@@@-Action Time Under 10");
-        }
-        else {
-            date1 += " - " + hour + ":" + minute;
-            System.out.println("@@@@@@@@@@@@@-Action Time Default");
-        }
-        this.date = date1;
+        this.date = dateAndTimeFormatting(date,hour,minute);
         this.Location = address + "(lat: " + latitude + ", long: " + longitude + ")";
     }
 
@@ -109,6 +72,32 @@ public class Actions {
                 "\ndate: " + getDate() +
                 "\nLocation: " + getLocation();
     }
+
+    //Returns the time with AM PM formatting for New Objects
+    public String dateAndTimeFormatting(String date, int hour, int minute){
+        String date1 = date;
+        if(hour > 12) {
+            int hrS = hour;
+            if (hour > 12)
+                hrS -= 12;
+            if(minute < 10){
+                String minS = String.format("%02d", minute);
+                date1 += " - " + hrS + ":" + minS + " PM";
+            }
+            else{
+                date1 += " - " + hrS + ":" + minute  + " PM";
+            }
+        }
+        else if(minute < 10){
+            String minS = String.format("%02d", minute); //adds a zero in front of the min number
+            date1 += " - " + hour + ":" + minS  + " AM";
+        }
+        else {
+            date1 += " - " + hour + ":" + minute + " AM";
+        }
+        return date1;
+    }
+
 
     public int getTaskID() {
         return taskID;

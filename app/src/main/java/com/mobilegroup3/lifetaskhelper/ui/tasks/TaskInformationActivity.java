@@ -34,7 +34,6 @@ public class TaskInformationActivity extends AppCompatActivity {
     //Database Systems that manipulate the Data.
     private SQLiteDatabase action_db;
     private Cursor DB_cursor;
-    //private SimpleCursorAdapter listAdapter = null;
     private ActionViewAdapter listAdapter = null;
 
     @Override
@@ -76,17 +75,6 @@ public class TaskInformationActivity extends AppCompatActivity {
                                 "DATE",
                                 "LOCATION"},
                         null, null, null, null, null);
-                //System.out.println("@@@@@@@@@@@@-Created query");
-
-                /*
-                //Creates the Listview that displays the Dates of the actions
-                listAdapter = new SimpleCursorAdapter(this,
-                        android.R.layout.simple_list_item_1,
-                        DB_cursor,
-                        new String[]{"DATE"},
-                        new int[]{android.R.id.text1},
-                        0);
-                 */
 
                 //Move to the first record in the Cursor to Read the list of Actions
                 if (DB_cursor.moveToFirst()) {
@@ -117,20 +105,14 @@ public class TaskInformationActivity extends AppCompatActivity {
                 }
 
                 listAdapter = new ActionViewAdapter(TaskInformationActivity.this, action);
-                System.out.println("@@@@@@@@@@@@-Applying List Adapter");
                 pastActivityList.setAdapter(listAdapter);
-                
-                //System.out.println("@@@@@@@@@@@@-Added Actions");
-                //taskAdapter = new TaskViewAdapter(getContext(), tasks);
+                //Debug to see what Actions are being Identified
+                /*
                 for (Actions Act: action) {
                     System.out.println("@@@@@@@@@@@@- Action\n" + Act.ActionString());
                 }
+                 */
 
-                //System.out.println(tasks);
-                //listView.setAdapter(taskAdapter);
-
-                //DB_cursor.close();
-                //action_cursor.close();
                 action_db.close();
                 System.out.println("@@@@@@@@@@@@- Closed Actions Database Connection - @@@@@@@@@");
 
@@ -160,7 +142,7 @@ public class TaskInformationActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         System.out.println("@@@@@@@@@@@- Information Activity Destroyed");
-        //finish();
+        finish();
         // actions need to be destroyed to call Database again when it is called
         // for a different Task Instance
         action.clear();

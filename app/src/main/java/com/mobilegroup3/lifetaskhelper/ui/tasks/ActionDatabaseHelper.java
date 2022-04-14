@@ -37,7 +37,7 @@ public class ActionDatabaseHelper extends SQLiteOpenHelper {
         ContentValues taskValues = new ContentValues();
         taskValues.put("TASK_ID", 1);
         taskValues.put("DESCRIPTION", description);
-        taskValues.put("DATE", "2022-04-13 - 17:30");
+        taskValues.put("DATE", "2022-04-13 - 5:30 PM");
         taskValues.put("LOCATION", "N/A");
         db.insert(TB_NAME, null, taskValues);
     }
