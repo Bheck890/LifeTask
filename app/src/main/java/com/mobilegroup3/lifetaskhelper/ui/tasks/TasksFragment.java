@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.mobilegroup3.lifetaskhelper.SQL.TaskDatabaseHelper;
 import com.mobilegroup3.lifetaskhelper.databinding.FragmentHomeBinding;
 import com.mobilegroup3.lifetaskhelper.task.Task;
 import com.mobilegroup3.lifetaskhelper.task.TaskListView;

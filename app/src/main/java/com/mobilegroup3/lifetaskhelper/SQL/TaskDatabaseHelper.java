@@ -1,9 +1,11 @@
-package com.mobilegroup3.lifetaskhelper.ui.tasks;
+package com.mobilegroup3.lifetaskhelper.SQL;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.mobilegroup3.lifetaskhelper.ui.tasks.TasksFragment;
 
 
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
@@ -17,7 +19,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     //private static final String A_TB_NAME = ActionDatabaseHelper.TB_NAME;
     private static final int DB_VERSION = 1; // the version of the database
 
-    TaskDatabaseHelper(Context context) {
+    public TaskDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
