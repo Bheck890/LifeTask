@@ -32,7 +32,7 @@ public class TasksFragment extends Fragment {
     // or if the database had a bug and want to rest the values
 
     //Recommend to reset to 1 after you uninstall the application on the device that is being used.
-    public static int DatabaseNumber = 1;
+    public static int DatabaseNumber = 2;
 
     //Task Database Variables.
     public static ArrayList<Task> tasks = new ArrayList<>();

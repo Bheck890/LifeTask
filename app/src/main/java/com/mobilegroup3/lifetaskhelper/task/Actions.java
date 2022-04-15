@@ -59,7 +59,7 @@ public class Actions {
         this.taskID = taskID;
         this.actionNote = getActionNote();
         this.date = dateAndTimeFormatting(date,hour,minute);
-        this.Location = address + "\n(lat: " + latitude + ", long: " + longitude + ")";
+        this.Location = address + "\nLatitude: " + latitude + "\nLongitude: " + longitude;
     }
 
     @Override

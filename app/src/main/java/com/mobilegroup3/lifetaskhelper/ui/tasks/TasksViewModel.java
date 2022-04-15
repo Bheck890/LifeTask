@@ -10,8 +10,6 @@ import java.util.List;
 public class TasksViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
-    //private MutableLiveData<Double> latit;
-    //private MutableLiveData<Double> lon;
 
     //this is constantly being updated to the users cordinates
     public static double[] LocationValues = {0.0, 0.0};
@@ -22,35 +20,12 @@ public class TasksViewModel extends ViewModel {
 
     public TasksViewModel() {
         mText = new MutableLiveData<>();
-        //latit = new MutableLiveData<>();
-        //lon = new MutableLiveData<>();
-
-        //ViewModelProvider mainActivityViewModel = new ViewModelProvider((ViewModelStoreOwner) this);
-        //mainActivityViewModel
-        //mText.setValue("Tasks:");
 
     }
 
     public LiveData<String> getText() {
         return mText;
     }
-
-    /*
-    public double getLatitude() {
-        return latit.getValue();
-    }
-    public double getLongitude() {
-        return lon.getValue();
-    }
-
-    public void setLatitude(MutableLiveData<Double> latitu) {
-        latit = latitu;
-    }
-
-    public void setLongitude(MutableLiveData<Double> longit) {
-        lon = longit;
-    }
-     */
 
     //being updated from the main activity.
     public void updateLocation(double lat, double longitude) {

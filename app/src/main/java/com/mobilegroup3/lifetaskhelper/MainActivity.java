@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                 LocationValues[0] = location.getLatitude();
                 LocationValues[1] = location.getLongitude();
+
                 /*
                 System.out.println("@@@@@@@@@@@@@"
                         + " Updating Users Location: "
@@ -92,12 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                  */
 
-                //mainActivityViewModel.LocationValues = LocationValues;
-
                 mainActivityViewModel.updateLocation(location.getLatitude(),location.getLongitude());
-                //mainActivityViewModel.setLatitude(location.getLatitude());
-                //mAppBarConfiguration.getTopLevelDestinations().
-                //t.append("\n " + location.getLongitude() + " " + location.getLatitude());
             }
 
             @Override

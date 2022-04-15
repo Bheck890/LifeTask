@@ -549,7 +549,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
 
         try{
             addresses = geocoder.getFromLocation(lat, lng, 1);
-            Address = addresses.get(0).toString();
+            Address = addresses.get(0).getAddressLine(0);
             System.out.println("@@@@@@@@ ADDRESS: " + Address);
         }
         catch (IOException e){
