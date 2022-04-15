@@ -11,19 +11,12 @@ public class Task {
 
     Needed for the Group project needed to complete: (Complete Application)
 
-    1. Simple use of the words from the assignment Requirements.
-    - when the action is preformed the device location is recorded, and put into action database
-    - if you can reverse the coordinates into an address then
-        it adds the address into the Location Field with coordinates,
-        else it would just be coordinates.
-
     2. Notification to remind the User of the specified reminder (if there is extra time and make it cool)
      - have the date and time set to remind the user, needs to make an action task as their reminder is activated,
          it just needs a system to notify the user.
          if the date matches the date that they specified
          **(mainly) if their location matches the address that they want to be notified at**
             way to have app running in background checking for dates and location
-
 
     //------------------------- (BHeck) I want to do,
             or you guys can do it if you got time (they are pretty simple)
@@ -49,9 +42,15 @@ public class Task {
     - When the task is made have it create an optional first action saying it got done now
         or to mark will be preformed later
 
+    - When the location is in the info area they can click on the location and it will open the address
+        in their browser so they can know exactly where they were when they preformed the activity.
+            - if the address is invalid it uses the coordinates.
+    - When they make an action add a choice to add their current location in the action for later use.
+
+
 
       ### Locations Features Update:
-        - pre determined set of Locations and past locations so they can mark a location with a
+        - pre-set a determined set of Locations and past locations so they can mark a location with a
             known name so they know where the location cords would be. and if they get there again
         - Way to input the local grocery store or something.
         - Autofill address in the text box when entering address.
@@ -72,27 +71,34 @@ public class Task {
     - Better Color choices?
     - Verify it looks good on a Device in dark mode.
 
+
     Possible Future Looks
     - Info page to have a graph of the date specified in month format
         to show how many times a month or week the action may occur
     - Update Reminder button to be Red if the date surpasses the current date,
         as it would be overdue
 
+
     Backend Bugs: (need Inspection)
      - When you delete a task have it also delete the Actions that were also for that Task
      - during Development there was an issue of index out of bounds for adding 3 and removing 2
         then the index gets out of wack and needs to be inspected.
-     - with 3 Tasks (Defaults (location,Date,task)) - after editing task 2,
+
+     - longitude Database variable does not have the trailing numbers (Inspection)
+     - if the user changes the address the valid address is changed to disable
+        until it is verified again (bug)
+
+
+    Solved Bugs?
+    - with 3 Tasks (Defaults (location,Date,task)) - after editing task 2,
         the ordering of the tasks change (need further Testing and inspection)
             - (bug update n) [if notice something else with the ordering place note here]
             - (Bug Update 2) it glitches the position id indicator
                 to a number and can override other tasks
             - (bug update 3) after editing the task settings from initially the info page
                 The issue is also occurring.
-
-     - longitude Database variable does not have the trailing numbers (Inspection)
-     - if the user changes the address the valid address is changed to disable
-        until it is verified again (bug)
+            - (Possible solved) by changing size to the instance id instead.
+            - Waiting for it to occur again in a while else it is solved.
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
