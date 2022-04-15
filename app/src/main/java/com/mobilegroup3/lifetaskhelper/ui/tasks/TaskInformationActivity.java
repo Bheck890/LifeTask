@@ -59,7 +59,7 @@ public class TaskInformationActivity extends AppCompatActivity {
 
         // Accessing the data using key and value
         taskId = intent.getIntExtra("taskid",-1);
-        Task taskInstance = TasksFragment.tasks.get(taskId-1);
+        Task taskInstance = TasksFragment.tasks.get(taskId-1); //SQLGatherObjects
         System.out.println("@@@@@@@ Begin Information Instance, For Task: \n" + taskInstance);
 
         if (taskId != -1) { //

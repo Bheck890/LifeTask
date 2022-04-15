@@ -46,7 +46,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         // Accessing the data using key and value
         taskId = intent.getIntExtra("taskid",-1);
-        Task taskInstance = TasksFragment.tasks.get(taskId-1);
+        Task taskInstance = TasksFragment.tasks.get(taskId-1); //
 
         System.out.println("@@@@@@@Began Edit on task Instance: " + taskInstance);
 
@@ -85,6 +85,17 @@ public class EditTaskActivity extends AppCompatActivity {
                 hour[0] = taskInstance.getHour();
                 min[0] = taskInstance.getMinute();
             }
+            /*
+            if(!((taskInstance.getLatitude() == 0) && (taskInstance.getLongitude() == 0))){
+                Location[0].setLatitude(taskInstance.getLatitude());
+                Location[0].setLongitude(taskInstance.getLongitude());
+            }
+             */
+
+            if(taskInstance.getAddress_verified()){
+                Location[0] = getLocationFromAddress(taskInstance.getAddress());
+            }
+
 
         } else {
             finish();
@@ -299,7 +310,8 @@ public class EditTaskActivity extends AppCompatActivity {
                                 editTitle.getText().toString(); //String Title
 
                                 TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                        TasksFragment.tasks.size(), //taskInstance.getId(),
+                                //SQLGatherObjects.tasks.get(taskInstance.getId()-1).updateTask(
+                                        taskInstance.getId(), //TasksFragment.tasks.size(),
                                         editTitle.getText().toString(),
                                         Location[0].getLatitude(),
                                         Location[0].getLongitude(),
@@ -350,7 +362,8 @@ public class EditTaskActivity extends AppCompatActivity {
                                         );
 
                                         TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                                TasksFragment.tasks.size(), //taskInstance.getId(),
+                                        //SQLGatherObjects.tasks.get(taskInstance.getId()-1).updateTask(
+                                                taskInstance.getId(), //TasksFragment.tasks.size(),
                                                 editTitle.getText().toString(),
                                                 0,
                                                 0,
@@ -368,6 +381,8 @@ public class EditTaskActivity extends AppCompatActivity {
                                         finish();
                                         TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
                                         TasksFragment.updateTaskDB(taskInstance);
+
+
                                         //----------------------------------------------------------------
                                     }
                                     else{
@@ -394,7 +409,8 @@ public class EditTaskActivity extends AppCompatActivity {
                                 //Boolean for Date False
 
                                 TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
-                                        taskInstance.getId(),
+                                //SQLGatherObjects.tasks.get(taskInstance.getId()-1).updateTask(
+                                        taskInstance.getId(), //TasksFragment.tasks.size(),
                                         editTitle.getText().toString(),
                                         0,
                                         0,

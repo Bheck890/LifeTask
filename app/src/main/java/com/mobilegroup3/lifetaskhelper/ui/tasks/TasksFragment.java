@@ -32,7 +32,7 @@ public class TasksFragment extends Fragment {
     // or if the database had a bug and want to rest the values
 
     //Recommend to reset to 1 after you uninstall the application on the device that is being used.
-    public static int DatabaseNumber = 6;
+    public static int DatabaseNumber = 1;
 
     //Task Database Variables.
     public static ArrayList<Task> tasks = new ArrayList<>();
@@ -45,9 +45,10 @@ public class TasksFragment extends Fragment {
     private Cursor cursor;
 
     //Fragment Variables.
-    private TasksViewModel homeViewModel;
+    private static TasksViewModel homeViewModel;
     private FragmentHomeBinding binding;
     static TaskViewAdapter taskAdapter; //Adapter for the buttons in the listView
+    private boolean location = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +58,10 @@ public class TasksFragment extends Fragment {
         View root = binding.getRoot();
 
         listView = (TaskListView) binding.taskList;
+
+        //SQLGatherObjects SQL = new SQLGatherObjects();
+        //taskAdapter = SQL.gatherTaskObjects(getContext(),listView,taskAdapter);
+
 
         //After Actions are Gathered, the Task list can show helpful Information
         if(tasks.isEmpty()) {
@@ -107,6 +112,12 @@ public class TasksFragment extends Fragment {
                                 hour,
                                 min
                         ));
+
+                        if(address_verified) {
+                            System.out.println("@@@@@@ Location Tracking");
+                            homeViewModel.addCoordinates(latitude,longitude);
+                        }
+
                         cursor.moveToNext();
                     }
                 }
@@ -118,8 +129,7 @@ public class TasksFragment extends Fragment {
                 for (Task Tas: tasks) {
                     System.out.println("@@@@@@@@@@@@-" + Tas);
                 }
-                 */
-
+                */
                 listView.setAdapter(taskAdapter);
 
                 //Close Database Variables
@@ -134,8 +144,6 @@ public class TasksFragment extends Fragment {
                 toast.show();
             }
         }
-
-
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -153,6 +161,7 @@ public class TasksFragment extends Fragment {
         binding = null;
         //Empty the data for the system. for a good refresh of the data.
         tasks.clear();
+        //SQLGatherObjects.clearArrays();
     }
 
     public static TaskViewAdapter getAdapter() {
@@ -238,6 +247,21 @@ public class TasksFragment extends Fragment {
             //toast.show();
         }
     }
+
+    public static double[] getCoords(){
+        double[] LocationValues = {10.5, -100};
+
+        LocationValues = homeViewModel.LocationValues;
+
+        //homeViewModel = new ViewModelProvider(this).get(TasksViewModel.class);
+        //LocationValues[0] = homeViewModel.getLatitude();
+        //LocationValues[1] = homeViewModel.getLongitude();
+
+
+        return LocationValues;
+
+    }
+
 
 
 }

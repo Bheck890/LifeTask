@@ -43,6 +43,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
 
     //adding Task to the DataBase
     private static SQLiteOpenHelper actionDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +58,8 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
         EditText editTextDescription = findViewById(R.id.recordTxtDescription);
 
         // Accessing the data using key and value
-        taskId = intent.getIntExtra("taskid",-1);
-        Task taskInstance = TasksFragment.tasks.get(taskId-1);
+        taskId = intent.getIntExtra("taskid", -1);
+        Task taskInstance = TasksFragment.tasks.get(taskId - 1);
         System.out.println("@@@@@@@ Begin Action Record Instance, For Task: \n" + taskInstance);
 
         //Set Elements For Time
@@ -94,21 +95,25 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             editTextLocation.setText(taskInstance.getAddress());
             location[0] = taskInstance.getAddress_verified();
 
-            if((taskInstance.getHour() == 0) && (taskInstance.getMinute() == 0)){
+            if ((taskInstance.getHour() == 0) && (taskInstance.getMinute() == 0)) {
                 editTextTime.setText("");
                 System.out.println("@@@@@@@@@@@@@-Empty Time1");
-            }
-            else{
+            } else {
                 hour[0] = taskInstance.getHour();
                 min[0] = taskInstance.getMinute();
             }
+
+            if (taskInstance.getAddress_verified()) {
+                Location[0] = getLocationFromAddress(taskInstance.getAddress());
+            }
+
 
         } else {
             finish();
         }
 
         //Control flow on what to show based on what Type of Task it is.
-        if(location[0]){ //Location Exists
+        if (location[0]) { //Location Exists
             //Enable Location Reminder Options
             editTextLocation.setEnabled(true);
             buttonVerify.setEnabled(true);
@@ -126,8 +131,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             buttonTime.setVisibility(View.INVISIBLE);
 
             editDataNotice.setText(R.string.record_all_data);
-        }
-        else if(!taskInstance.getDate().isEmpty()) { //Date Exists
+        } else if (!taskInstance.getDate().isEmpty()) { //Date Exists
             //Disable Location Reminder Options
             editTextLocation.setEnabled(false);
             buttonVerify.setEnabled(false);
@@ -145,8 +149,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             editTextTime.setText("");
             editTextDate.setHint(R.string.dateBox);
             editTextTime.setHint(R.string.timeBox);
-        }
-        else{ //No Location or Date Set in the Task
+        } else { //No Location or Date Set in the Task
             //Disable Location Reminder Options
             editTextLocation.setEnabled(false);
             buttonVerify.setEnabled(false);
@@ -180,7 +183,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                 newDate.set(year, month, dayOfMonth);
                                 editTextDate.setText(dateFormatter.format(newDate.getTime()));
                             }
-                        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -206,7 +209,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                editTextTime.setText(TimeFormatting(hourOfDay,minute));
+                                editTextTime.setText(TimeFormatting(hourOfDay, minute));
 
                                 /*
                                 if(minute < 10){
@@ -241,7 +244,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                     System.out.println("Longitude: " + Location[0].getLongitude());
                     CheckboxAddressVerify.setChecked(true);
 
-                }catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println("Not enough Information please Try again.");
 
                     Toast toast = Toast.makeText(ActionRecordTaskActivity.this,
@@ -253,7 +256,15 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             }
         });
 
-        int version = 0;
+        /*
+        double[] cordinates= TasksFragment.getCoords();
+        System.out.println("@@@@@@@@@@@@@" +
+                "\nUser Latitude: " + cordinates[0] +
+                "\nUser Longitude: " + cordinates[1]
+        );
+         */
+
+        //int version = 0;
         //Save Button
         Button buttonSave = this.findViewById(R.id.recordSaveBtn);
         buttonSave.setOnClickListener(
@@ -277,13 +288,17 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
 
                                 //----------------------------------------------------------------
 
+                                double[] cordinates= TasksFragment.getCoords();
+
                                 //Variables to put into Database
                                 editTextViewTitle.getText().toString(); //String Title
                                 System.out.println("@@@@@Action Task Location" +
                                         "\nTitle: " + editTextViewTitle.getText().toString() +
                                         "\nLatitude: " + Location[0].getLatitude() +
                                         "\nLongitude: " + Location[0].getLongitude() +
-                                        "\nAddress: " + editTextLocation.getText().toString()
+                                        "\nAddress: " + editTextLocation.getText().toString() +
+                                        "\nUser Latitude: " + cordinates[0] +
+                                        "\nUser Longitude: " + cordinates[1]
                                 );
 
                                 Actions action = new Actions(
@@ -292,9 +307,10 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         date,
                                         Hour,
                                         minute,
-                                        Location[0].getLatitude(),
-                                        Location[0].getLongitude(),
-                                        editTextLocation.getText().toString()
+                                        cordinates[0],//Location[0].getLatitude(),
+                                        cordinates[1],//Location[0].getLongitude(),
+                                        getAddressFromLocation(cordinates[0],cordinates[1])
+                                        //editTextLocation.getText().toString()
                                 );
                                 addAction(action);
 
@@ -498,6 +514,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
 
 
     //Turn the address into coordinates.
+    //https://www.latlong.net/convert-address-to-lat-long.html
     public Address getLocationFromAddress(String strAddress) {
         //https://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address/3574792#3574792
         Geocoder coder = new Geocoder(this);
@@ -517,6 +534,30 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    //Turn the coordinates into address.
+    //https://www.latlong.net/Show-Latitude-Longitude.html
+    //https://stackoverflow.com/a/477000
+
+    public String getAddressFromLocation(double lat, double lng) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+
+        String Address = "unable to find location";
+
+        try{
+            addresses = geocoder.getFromLocation(lat, lng, 1);
+            Address = addresses.get(0).toString();
+            System.out.println("@@@@@@@@ ADDRESS: " + Address);
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+
+        return Address;
+
     }
 
     //Returns the time with AM PM formatting
@@ -548,21 +589,6 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
         return date1;
     }
 
-    //Easier control flow of actions to modify the Tasks
-    public void updateTaskInformation(int version){
-        /*
-        Version:
-        0 = Pass new Date into Task
-        1 = Pass new location into Task
-        Default = put into default only task name (No Date or Location)
 
-
-         */
-
-        if(version == 0){
-
-        }
-
-    }
 
 }
