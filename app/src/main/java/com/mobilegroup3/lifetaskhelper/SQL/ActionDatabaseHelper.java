@@ -52,6 +52,7 @@ public class ActionDatabaseHelper extends SQLiteOpenHelper {
                     + "TASK_ID INTEGER,"
                     + "DESCRIPTION TEXT,"
                     + "DATE TEXT,"
+                    + "TIME TEXT,"
                     + "LOCATION TEXT);");
 
             //insertLocationDefault(db, "Example Location note"); // Green

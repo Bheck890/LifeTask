@@ -363,7 +363,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
                                         TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
                                         //SQLGatherObjects.tasks.get(taskInstance.getId()-1).updateTask(
-                                                taskInstance.getId(), //TasksFragment.tasks.size(),
+                                                taskInstance.getId(),
                                                 editTitle.getText().toString(),
                                                 0,
                                                 0,
@@ -410,7 +410,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
                                 TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
                                 //SQLGatherObjects.tasks.get(taskInstance.getId()-1).updateTask(
-                                        taskInstance.getId(), //TasksFragment.tasks.size(),
+                                        taskInstance.getId(),
                                         editTitle.getText().toString(),
                                         0,
                                         0,
@@ -421,13 +421,13 @@ public class EditTaskActivity extends AppCompatActivity {
                                         0,
                                         0
                                 );
-                                TasksFragment.updateTaskDB(taskInstance);
+
 
                                 //Update the Task function is Below
                                 //TasksFragment.tasks.get(taskId).setTitle(editText.getText().toString());
-                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
                                 finish();
-
+                                TasksFragment.getAdapter().notifyDataSetChanged(); //changes size not contents.
+                                TasksFragment.updateTaskDB(taskInstance);
 
 
                                 //----------------------------------------------------------------

@@ -270,6 +270,7 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(
                 new View.OnClickListener() {
 
+                    //SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                     //Get Date;
                     final Calendar calendar = Calendar.getInstance(Locale.getDefault());
                     final Calendar newDate = Calendar.getInstance();
@@ -325,7 +326,8 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         CheckboxAddressVerify.isChecked(),
                                         "",
                                         0,
-                                        0
+                                        0,
+                                        action.getDate()
                                 );
 
                                 finish();
@@ -345,6 +347,16 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG);
                                 toast.show();
 
+                                Actions action = new Actions(
+                                        taskId,
+                                        editTextDescription.getText().toString(),
+                                        date,
+                                        Hour,
+                                        minute
+                                        //editTextLocation.getText().toString()
+                                );
+                                addAction(action);
+
                                 //places empty Information into the Task if there is no (Date/Location)
                                 TasksFragment.tasks.get(taskInstance.getId()-1).updateTask(
                                         taskInstance.getId(),
@@ -356,7 +368,8 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         false,
                                         "",
                                         0,
-                                        0
+                                        0,
+                                        action.getDate()
                                 );
 
                                 //Update the Task function is Below
@@ -415,7 +428,8 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                                 false,
                                                 editTextDate.getText().toString(),
                                                 hour[0],
-                                                min[0]
+                                                min[0],
+                                                action.getDate()
                                         );
 
                                         //Update the Task function is Below
@@ -469,7 +483,8 @@ public class ActionRecordTaskActivity extends AppCompatActivity {
                                         false,
                                         "",
                                         0,
-                                        0
+                                        0,
+                                        action.getDate()
                                 );
 
                                 //Update the Task function is Below

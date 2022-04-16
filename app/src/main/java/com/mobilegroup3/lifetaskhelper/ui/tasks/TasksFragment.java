@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.mobilegroup3.lifetaskhelper.SQL.ActionDatabaseHelper;
 import com.mobilegroup3.lifetaskhelper.SQL.TaskDatabaseHelper;
 import com.mobilegroup3.lifetaskhelper.databinding.FragmentHomeBinding;
 import com.mobilegroup3.lifetaskhelper.task.Task;
@@ -32,12 +33,13 @@ public class TasksFragment extends Fragment {
     // or if the database had a bug and want to rest the values
 
     //Recommend to reset to 1 after you uninstall the application on the device that is being used.
-    public static int DatabaseNumber = 2;
+    public static int DatabaseNumber = 1;
 
     //Task Database Variables.
     public static ArrayList<Task> tasks = new ArrayList<>();
     private static SQLiteOpenHelper taskDatabase;
-    private static final String T_TB_NAME = TaskDatabaseHelper.TB_NAME; // the name of our Table
+    private static final String T_TB_NAME = TaskDatabaseHelper.TB_NAME; // the name of Task Table
+    private static final String A_TB_NAME = ActionDatabaseHelper.TB_NAME; // the name of Action Table
     private TaskListView listView;
 
     //Database Systems that manipulate the Data.
@@ -122,7 +124,21 @@ public class TasksFragment extends Fragment {
                     }
                 }
 
+                //Adds the Tasks day that was last updated on it
+                tasks = updateTaskActionDate(tasks);
+
                 taskAdapter = new TaskViewAdapter(getContext(), tasks);
+
+                // Needs to gather from the action Table the first instance that matches the
+                /*
+                cursor = db.query (A_TB_NAME,
+                        new String[] {
+                                "_id",
+                                "TASK_ID"
+                        }, //
+                        null, null, null, null, null);
+
+                 */
 
                 /*
                 //Output the tasks for Debugging verification
@@ -250,16 +266,50 @@ public class TasksFragment extends Fragment {
 
     public static double[] getCoords(){
         double[] LocationValues = {10.5, -100};
-
         LocationValues = homeViewModel.LocationValues;
-
-        //homeViewModel = new ViewModelProvider(this).get(TasksViewModel.class);
-        //LocationValues[0] = homeViewModel.getLatitude();
-        //LocationValues[1] = homeViewModel.getLongitude();
-
-
         return LocationValues;
+    }
 
+    //Updates Tasks to the Database
+    public ArrayList<Task> updateTaskActionDate(ArrayList<Task> tasksUpdate) {
+        System.out.println("@@@@@@@-Update Tasks with Dates");
+
+        //Go through the Actions and update each one to the task is assigned with.
+        try {
+            SQLiteOpenHelper actionDatabase = new ActionDatabaseHelper(getContext());
+            SQLiteDatabase db = actionDatabase.getWritableDatabase();
+            cursor = db.query (A_TB_NAME,
+                    new String[] {
+                            "_id",
+                            "TASK_ID",
+                            "DATE"
+                    }, //
+                    null, null, null, null, null);
+
+            //Move to the first record in the Cursor
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    System.out.println("@@@@@@@@@@@@-Reading Action Database Line");
+                    int _id = cursor.getInt(0);
+                    int t_id = cursor.getInt(1);
+                    String date = cursor.getString(2);//.substring(0,cursor.getString(2).indexOf(" "));
+
+                    System.out.println("@@@@@@@@ Date: " + date);
+                    tasksUpdate.get(t_id-1).setDateSinceUpdate(date);
+
+                    cursor.moveToNext();
+                }
+            }
+
+            //Close Database Variables
+            cursor.close();
+            db.close();
+            System.out.println("@@@@@@@@@@@@- Closed Action Database Connection Check - @@@@@@@@@");
+
+        } catch(SQLiteException e) {
+            System.out.println("@@@@@@@@@@@@@ - Issue updating the Action days from tasks Database");
+        }
+        return tasksUpdate;
     }
 
 

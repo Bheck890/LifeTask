@@ -93,6 +93,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                                 "TASK_ID",
                                 "DESCRIPTION",
                                 "DATE",
+                                "TIME",
                                 "LOCATION"},
                         null, null, null, null, null);
 
@@ -117,7 +118,8 @@ public class TaskInformationActivity extends AppCompatActivity {
                             //int task_ID = action_cursor.getInt(1);
                             String description = DB_cursor.getString(2);
                             String date = DB_cursor.getString(3);
-                            String location = DB_cursor.getString(4);
+                            String time = DB_cursor.getString(4);
+                            String location = DB_cursor.getString(5);
 
                             action.add(new Actions(
                                     _id,

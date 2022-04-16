@@ -2,6 +2,10 @@ package com.mobilegroup3.lifetaskhelper.task;
 
 import android.graphics.Color;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class Task {
 
     /*
@@ -10,22 +14,12 @@ public class Task {
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     Needed for the Group project needed to complete: (Complete Application)
-
     2. Notification to remind the User of the specified reminder (if there is extra time and make it cool)
      - have the date and time set to remind the user, needs to make an action task as their reminder is activated,
          it just needs a system to notify the user.
          if the date matches the date that they specified
          **(mainly) if their location matches the address that they want to be notified at**
             way to have app running in background checking for dates and location
-
-    //------------------------- (BHeck) I want to do,
-            or you guys can do it if you got time (they are pretty simple)
-
-    (C) (Date Comparison) Have the system compare the current date
-     - update Task Message date info, to the last time the action was preformed for that task
-        then to appear on the task list.
-
-    //-------------------------
 
     ---------------------------------------------------------------
     Project Future things:
@@ -46,7 +40,6 @@ public class Task {
         in their browser so they can know exactly where they were when they preformed the activity.
             - if the address is invalid it uses the coordinates.
     - When they make an action add a choice to add their current location in the action for later use.
-
 
 
       ### Locations Features Update:
@@ -115,7 +108,7 @@ public class Task {
 
 
      */
-
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     private int id = 0;
 
@@ -125,9 +118,6 @@ public class Task {
     //////////////////////////////
     //Since the task was performed
     private String dateSinceUpdate = "Never Started";
-
-    //Note From the task Preformed
-    private String taskNote = "";
 
     //Day and time to remind the User (Running in background and remind when time matches)
     private String dateToRemindUser = " ";
@@ -156,7 +146,7 @@ public class Task {
     public Task(int id, String name, String update){
         this.id = id;
         this.Title = name;
-        this.dateSinceUpdate = update;
+        //this.dateSinceUpdate = update;
     }
 
     //All SQL stuff
@@ -207,6 +197,32 @@ public class Task {
         this.minute = minute;
     }
 
+    //All SQL stuff with New Action
+    public void updateTask(int id,
+                           String title,
+                           double latitude,
+                           double longitude,
+                           String address,
+                           Boolean enable_address,
+                           Boolean address_verified,
+                           String date,
+                           int hour,
+                           int minute,
+                           String datePreformed){
+        this.id = id;
+        this.Title = title;
+        //this.dateSinceUpdate = update;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+        this.enable_address = enable_address;
+        this.address_verified = address_verified;
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
+        this.dateSinceUpdate = datePreformed;
+    }
+
     @Override
     public String toString() {
 
@@ -236,35 +252,33 @@ public class Task {
         //when have sql data have it calculate days since last update.
         if(dateSinceUpdate.equals("Never Started"))
             return dateSinceUpdate;
-
-        return "Preformed: " + dateSinceUpdate + " ago";
+        return "Preformed on : " + dateSinceUpdate;
     }
+
+    public void setDateSinceUpdate(String dateSinceUpdate) {
+        this.dateSinceUpdate = dateSinceUpdate;
+    }
+
 
     public int getId() {
         return id;
     }
-
-
-    //-------------------------------------------------------------
-
-    public String getTaskNote() {
-        return taskNote;
-    }
-
-    public void setTaskNote(String taskNote) {
-        this.taskNote = taskNote;
-    }
-
-    //-------------------------------------------------------------
 
     public String getDateToRemindUser() {
         return dateToRemindUser;
     }
 
     public void setDateToRemindUser(String dateToRemindUser) {
+        //Get Date;
+        final Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        final Calendar newDate = Calendar.getInstance();
+        final String date = dateFormatter.format(newDate.getTime()); // = is the date
+
         this.dateToRemindUser = dateToRemindUser;
     }
 
+    //The Reminder Notification is going to be in the View Model
+    // might need a Location Task Identifier to identify which notification has been triggered
     public String getLocationReminder() {
         return locationReminder;
     }
@@ -275,7 +289,8 @@ public class Task {
 
     //-------------------------------------------------------------
 
-
+    //Location Values that determine the values that the user should be notified.
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public double getLatitude() {
         return latitude;
     }
@@ -291,6 +306,8 @@ public class Task {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 
     public String getAddress() {
         return address;
@@ -316,6 +333,8 @@ public class Task {
         this.address_verified = address_verified;
     }
 
+    //Date to Set to Remind the user from.
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public String getDate() {
         return date;
     }
@@ -339,6 +358,8 @@ public class Task {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     public int getReminderColor(){
         if(getEnable_address()) //Location
