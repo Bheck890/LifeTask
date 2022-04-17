@@ -94,12 +94,6 @@ public class Task {
             - Waiting for it to occur again in a while else it is solved.
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
-    Side Tasks:
-    some custom art work and simple changing, for the menu bar options.
-    Setup to Email an email in contact us: not Needed
-    but if you want to make it email you or me would be cool
-
     Background and Future Issues:
     when saved have it in a format for the notification handler to push a notification.
     Date format for Notification Reminder
