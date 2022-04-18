@@ -52,8 +52,6 @@ public class Task {
 
     - other features that would make this application helpful and cool to use?
 
-
-
     Visible cosmetics
     - Message informing the user to add a new Task when there are no tasks
         (Have it first have the user start by adding a Task, only on start up of install.)
