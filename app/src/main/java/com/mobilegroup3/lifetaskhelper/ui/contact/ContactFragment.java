@@ -33,9 +33,9 @@ public class ContactFragment extends Fragment {
 
     String emailHost = "smtp.gmail.com";
     String emailPort = "587";// gmail's smtp port
-    String fromUser = "jesswaz24@gmail.com";
-    String fromUserEmailPassword = "qfrmtullkyboijjb";
-    String[] toEmails = { "jesswaz05@gmail.com" };
+    String fromUser = "mg3@gmail.com";
+    String fromUserEmailPassword = "AAAAAAAAAA123";
+    String[] toEmails = { "mg3@gmail.com" };
 
     public void setMailServerProperties() {
         emailProperties = System.getProperties();
